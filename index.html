@@ -334,6 +334,122 @@ body {
   letter-spacing: 0.02em;
 }
 
+/* ===== Login Screen ===== */
+.login-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  padding-top: var(--safe-t);
+  padding-bottom: var(--safe-b);
+}
+
+.login-screen.hidden { display: none; }
+
+.login-card {
+  width: 100%;
+  max-width: 340px;
+  background: var(--card-solid);
+  border-radius: var(--radius);
+  padding: 40px 32px;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.login-card h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.login-card .subtitle {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.login-form { text-align: left; }
+
+.login-form label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(107,143,113,0.2);
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+  margin-bottom: 16px;
+  -webkit-appearance: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(107,143,113,0.1);
+}
+
+.login-form input::placeholder {
+  color: var(--text-muted);
+}
+
+.login-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, var(--sage) 0%, var(--sage-deep) 100%);
+  color: #fff;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s, box-shadow 0.2s;
+  margin-top: 8px;
+}
+
+.login-btn:active {
+  transform: scale(0.98);
+}
+
+.login-btn:hover {
+  box-shadow: 0 4px 12px rgba(107,143,113,0.3);
+}
+
+.login-error {
+  color: #c45c5c;
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 16px;
+  min-height: 20px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.login-error.show { opacity: 1; }
+
 /* ===== States ===== */
 .arrived .num { color: var(--sage); }
 
@@ -381,9 +497,24 @@ body {
 </head>
 <body>
 
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <h1>Maui</h1>
+    <p class="subtitle">Your tropical escape awaits</p>
+    <form class="login-form" id="loginForm" autocomplete="on">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" autocomplete="username" placeholder="Enter username" required>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Enter password" required>
+      <button type="submit" class="login-btn">Enter</button>
+      <div class="login-error" id="loginError">Invalid username or password</div>
+    </form>
+  </div>
+</div>
+
 <div class="bg"><div class="bg-photo" id="bgPhoto"></div></div>
 
-<div class="app">
+<div class="app" id="mainApp">
   <header class="header">
     <h1>Maui</h1>
     <p class="dates" id="dates"></p>
@@ -435,6 +566,53 @@ body {
 
 <script>
 (function() {
+  // === Authentication ===
+  var AUTH_TOKEN = 'maui_aloha_2026_authenticated';
+  var VALID_USER = 'maui';
+  var VALID_PASS = 'mauitrip2026';
+
+  function checkAuth() {
+    return localStorage.getItem('maui_auth') === AUTH_TOKEN;
+  }
+
+  function setAuth() {
+    localStorage.setItem('maui_auth', AUTH_TOKEN);
+  }
+
+  function showApp() {
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('mainApp').style.display = '';
+    document.getElementById('bgPhoto').parentElement.style.display = '';
+    init();
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+    var user = document.getElementById('username').value.toLowerCase().trim();
+    var pass = document.getElementById('password').value;
+    var errorEl = document.getElementById('loginError');
+
+    if (user === VALID_USER && pass === VALID_PASS) {
+      setAuth();
+      showApp();
+    } else {
+      errorEl.classList.add('show');
+      document.getElementById('password').value = '';
+      setTimeout(function() { errorEl.classList.remove('show'); }, 3000);
+    }
+  }
+
+  // Check if already authenticated
+  if (checkAuth()) {
+    showApp();
+  } else {
+    document.getElementById('mainApp').style.display = 'none';
+    document.getElementById('bgPhoto').parentElement.style.display = 'none';
+    document.getElementById('loginForm').addEventListener('submit', handleLogin);
+    document.getElementById('username').focus();
+  }
+
+  // === Trip Configuration ===
   var TRIP_START = '2026-03-26';
   var TRIP_END = '2026-04-02';
   var TRIP_TIME = '17:00';
@@ -498,6 +676,9 @@ body {
 
     setInterval(updateCountdown, 1000);
     setInterval(updateClocks, 1000);
+
+    // Refresh fact button
+    document.getElementById('refreshFact').addEventListener('click', nextFact);
   }
 
   function updateDates() {
@@ -603,15 +784,10 @@ body {
     });
   }
 
-  // Refresh fact button
-  document.getElementById('refreshFact').addEventListener('click', nextFact);
-
   // Dark mode theme color
   if(window.matchMedia('(prefers-color-scheme:dark)').matches){
     document.querySelector('meta[name="theme-color"]').setAttribute('content','#141414');
   }
-
-  init();
 })();
 </script>
 </body>
