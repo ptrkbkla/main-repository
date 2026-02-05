@@ -495,6 +495,8 @@
 <div class="settings-panel card" id="settingsPanel">
   <label for="tripDateInput">Departure date</label>
   <input type="date" id="tripDateInput">
+  <label for="tripTimeInput">Departure time</label>
+  <input type="time" id="tripTimeInput">
   <label for="tripEndInput">Return date</label>
   <input type="date" id="tripEndInput">
   <button id="saveSettings">Save</button>
@@ -563,7 +565,7 @@
 (function () {
   var DEFAULT_TRIP_START = '2026-03-26';
   var DEFAULT_TRIP_END = '2026-04-02';
-  var DEPARTURE_HOUR = 17;
+  var DEFAULT_TRIP_TIME = '17:00';
   var HAWAII_TZ = 'Pacific/Honolulu';
   var MAUI_LAT = 20.7984;
   var MAUI_LON = -156.3319;
@@ -596,20 +598,24 @@
     95: ['\u26C8', 'Thunderstorm'],
   };
 
-  var tripStart, tripEnd;
+  var tripStart, tripEnd, tripTime;
 
   function loadSettings() {
     tripStart = localStorage.getItem('hw_tripStart') || DEFAULT_TRIP_START;
     tripEnd = localStorage.getItem('hw_tripEnd') || DEFAULT_TRIP_END;
+    tripTime = localStorage.getItem('hw_tripTime') || DEFAULT_TRIP_TIME;
     document.getElementById('tripDateInput').value = tripStart;
+    document.getElementById('tripTimeInput').value = tripTime;
     document.getElementById('tripEndInput').value = tripEnd;
     updateTripDisplay();
   }
 
   function saveSettings() {
     var s = document.getElementById('tripDateInput').value;
+    var t = document.getElementById('tripTimeInput').value;
     var e = document.getElementById('tripEndInput').value;
     if (s) { tripStart = s; localStorage.setItem('hw_tripStart', s); }
+    if (t) { tripTime = t; localStorage.setItem('hw_tripTime', t); }
     if (e) { tripEnd = e; localStorage.setItem('hw_tripEnd', e); }
     updateTripDisplay();
     fetchWeather();
@@ -665,7 +671,8 @@
   function updateCountdown() {
     var now = new Date();
     var target = new Date(tripStart + 'T00:00:00');
-    target.setHours(DEPARTURE_HOUR, 0, 0, 0);
+    var timeParts = tripTime.split(':');
+    target.setHours(parseInt(timeParts[0], 10), parseInt(timeParts[1], 10), 0, 0);
     var diff = target - now;
 
     if (diff <= 0) {
