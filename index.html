@@ -11,7 +11,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌴</text></svg>">
 <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23f7f5f0' width='180' height='180' rx='40'/><text x='90' y='125' font-size='90' text-anchor='middle'>🌴</text></svg>">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
@@ -22,25 +22,21 @@
   --sage: #6b8f71;
   --sage-soft: #8ba888;
   --sage-deep: #4a6b4e;
-  --warm: #c4a574;
   --text: #2d2d2d;
-  --text-soft: #6b6b6b;
-  --text-muted: #9a9a9a;
+  --text-soft: #5a5a5a;
+  --text-muted: #8a8a8a;
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
   --shadow: 0 2px 8px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
   --shadow-lg: 0 4px 12px rgba(0,0,0,0.05), 0 16px 48px rgba(0,0,0,0.08);
   --radius: 20px;
-  --radius-sm: 12px;
+  --radius-sm: 14px;
   --safe-t: env(safe-area-inset-top, 0px);
   --safe-b: env(safe-area-inset-bottom, 0px);
   --safe-l: env(safe-area-inset-left, 0px);
   --safe-r: env(safe-area-inset-right, 0px);
 }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  -webkit-font-smoothing: antialiased;
-}
+html { -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 
 body {
   font-family: 'Inter', -apple-system, system-ui, sans-serif;
@@ -53,11 +49,7 @@ body {
 }
 
 /* ===== Background ===== */
-.bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-}
+.bg { position: fixed; inset: 0; z-index: 0; }
 
 .bg-photo {
   position: absolute;
@@ -74,10 +66,10 @@ body {
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(247,245,240,0.2) 0%,
-    rgba(247,245,240,0.1) 25%,
-    rgba(247,245,240,0.4) 50%,
-    rgba(247,245,240,0.92) 75%,
+    rgba(247,245,240,0.15) 0%,
+    rgba(247,245,240,0.05) 20%,
+    rgba(247,245,240,0.35) 45%,
+    rgba(247,245,240,0.9) 70%,
     rgba(247,245,240,1) 100%
   );
 }
@@ -98,85 +90,86 @@ body {
 /* ===== Header ===== */
 .header {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .header h1 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 3.5rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 4rem;
+  font-weight: 300;
+  letter-spacing: 0.02em;
   color: var(--text);
   line-height: 1;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .header .dates {
-  font-size: 0.8rem;
-  color: var(--text-soft);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.05rem;
   font-weight: 400;
-  letter-spacing: 0.01em;
+  color: var(--text-soft);
+  letter-spacing: 0.03em;
 }
 
-/* ===== Countdown Hero ===== */
+/* ===== Countdown ===== */
 .countdown-card {
   background: var(--card);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: var(--radius);
-  padding: 32px 24px;
+  padding: 28px 20px;
   box-shadow: var(--shadow);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .countdown-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 4px;
 }
 
-.countdown-item {
-  text-align: center;
-}
+.countdown-item { text-align: center; }
 
 .countdown-item .num {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 3.2rem;
-  font-weight: 500;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 3.4rem;
+  font-weight: 300;
   line-height: 1;
   color: var(--text);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 .countdown-item .unit {
   font-size: 0.6rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   color: var(--sage);
   margin-top: 8px;
 }
 
 .countdown-label {
   text-align: center;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(107,143,113,0.1);
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(107,143,113,0.12);
 }
 
 .countdown-label span {
-  font-size: 0.7rem;
-  font-weight: 500;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  font-style: italic;
   color: var(--text-muted);
   letter-spacing: 0.02em;
 }
 
-/* ===== Time Cards Row ===== */
+/* ===== Time Cards ===== */
 .time-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
 .time-card {
@@ -184,7 +177,7 @@ body {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: var(--radius-sm);
-  padding: 16px;
+  padding: 14px 16px;
   box-shadow: var(--shadow-sm);
 }
 
@@ -192,23 +185,22 @@ body {
   font-size: 0.55rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--sage);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .time-card .time {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.4rem;
-  font-weight: 500;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 400;
   color: var(--text);
-  letter-spacing: -0.01em;
 }
 
 .time-card .detail {
   font-size: 0.65rem;
   color: var(--text-muted);
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 /* ===== Weather ===== */
@@ -217,18 +209,18 @@ body {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: var(--radius-sm);
-  padding: 16px;
+  padding: 14px 16px;
   box-shadow: var(--shadow-sm);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .weather-card .label {
   font-size: 0.55rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: var(--sage);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .weather-scroll {
@@ -240,62 +232,100 @@ body {
 }
 .weather-scroll::-webkit-scrollbar { display: none; }
 
-.weather-days {
-  display: flex;
-  gap: 6px;
-}
+.weather-days { display: flex; gap: 6px; }
 
 .weather-day {
   flex: 0 0 auto;
-  width: 52px;
+  width: 50px;
   text-align: center;
   padding: 10px 4px;
   border-radius: 10px;
   background: rgba(107,143,113,0.06);
 }
 
-.weather-day .d { font-size: 0.55rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
-.weather-day .i { font-size: 1.1rem; margin: 6px 0; line-height: 1; }
-.weather-day .t { font-size: 0.75rem; font-weight: 600; color: var(--text); }
-.weather-day .tl { font-size: 0.65rem; color: var(--text-muted); font-weight: 400; }
+.weather-day .d { font-size: 0.5rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.weather-day .i { font-size: 1.05rem; margin: 5px 0; line-height: 1; }
+.weather-day .t { font-size: 0.7rem; font-weight: 600; color: var(--text); }
+.weather-day .tl { font-size: 0.6rem; color: var(--text-muted); font-weight: 400; }
 
-/* ===== Daily Fact ===== */
+/* ===== Fact Card ===== */
 .fact-card {
   background: linear-gradient(135deg, var(--sage) 0%, var(--sage-deep) 100%);
   border-radius: var(--radius-sm);
-  padding: 20px;
+  padding: 18px 20px;
   box-shadow: var(--shadow);
-  margin-bottom: 16px;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.fact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .fact-card .label {
   font-size: 0.55rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   color: rgba(255,255,255,0.7);
-  margin-bottom: 8px;
+}
+
+.refresh-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.8);
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s;
+}
+
+.refresh-btn:active {
+  transform: scale(0.9);
+  background: rgba(255,255,255,0.2);
+}
+
+.refresh-btn.spin svg {
+  animation: spin 0.4s ease;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .fact-card .fact {
-  font-size: 0.85rem;
-  line-height: 1.5;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.55;
   color: #fff;
   font-weight: 400;
+  font-style: italic;
 }
 
 /* ===== Landmark ===== */
 .landmark {
   text-align: center;
   margin-top: auto;
-  padding-top: 24px;
+  padding-top: 20px;
 }
 
 .landmark span {
-  font-size: 0.65rem;
-  font-weight: 500;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  font-style: italic;
   color: var(--text-muted);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
 }
 
 /* ===== Settings ===== */
@@ -376,7 +406,7 @@ body {
 }
 .settings-panel button:active { transform: scale(0.98); background: var(--sage-deep); }
 
-/* ===== Trip Arrived ===== */
+/* ===== States ===== */
 .arrived .num { color: var(--sage); }
 
 /* ===== Dark Mode ===== */
@@ -389,48 +419,41 @@ body {
     --sage-soft: #a8c9ac;
     --sage-deep: #6a9970;
     --text: #f0f0f0;
-    --text-soft: #a0a0a0;
-    --text-muted: #6a6a6a;
+    --text-soft: #b0b0b0;
+    --text-muted: #707070;
   }
   .bg::after {
-    background: linear-gradient(
-      to bottom,
-      rgba(20,20,20,0.3) 0%,
-      rgba(20,20,20,0.2) 25%,
-      rgba(20,20,20,0.5) 50%,
-      rgba(20,20,20,0.95) 75%,
-      rgba(20,20,20,1) 100%
-    );
+    background: linear-gradient(to bottom,
+      rgba(20,20,20,0.2) 0%, rgba(20,20,20,0.1) 20%,
+      rgba(20,20,20,0.4) 45%, rgba(20,20,20,0.92) 70%, rgba(20,20,20,1) 100%);
   }
   .weather-day { background: rgba(143,184,149,0.08); }
   .settings-panel input { background: #252525; border-color: rgba(255,255,255,0.08); }
 }
 
-/* ===== Standalone PWA ===== */
+/* ===== PWA Standalone ===== */
 @media (display-mode: standalone) {
   .app { padding-top: calc(24px + var(--safe-t)); }
 }
 
-/* ===== Small screens ===== */
+/* ===== Small Screens ===== */
 @media (max-width: 375px) {
-  .header h1 { font-size: 2.8rem; }
-  .countdown-item .num { font-size: 2.6rem; }
-  .countdown-card { padding: 24px 16px; }
+  .header h1 { font-size: 3.2rem; }
+  .countdown-item .num { font-size: 2.8rem; }
+  .countdown-card { padding: 22px 16px; }
 }
 
-/* ===== Larger screens ===== */
+/* ===== Larger Screens ===== */
 @media (min-width: 500px) {
   .app { max-width: 480px; padding-left: 32px; padding-right: 32px; }
-  .header h1 { font-size: 4rem; }
-  .countdown-item .num { font-size: 3.6rem; }
+  .header h1 { font-size: 4.5rem; }
+  .countdown-item .num { font-size: 3.8rem; }
 }
 </style>
 </head>
 <body>
 
-<div class="bg">
-  <div class="bg-photo" id="bgPhoto"></div>
-</div>
+<div class="bg"><div class="bg-photo" id="bgPhoto"></div></div>
 
 <button class="settings-btn" id="settingsBtn" aria-label="Settings">&#9881;</button>
 <div class="settings-panel" id="settingsPanel">
@@ -478,7 +501,15 @@ body {
   </div>
 
   <div class="fact-card">
-    <div class="label">Did You Know?</div>
+    <div class="fact-header">
+      <div class="label">Did You Know?</div>
+      <button class="refresh-btn" id="refreshFact" aria-label="New fact">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
+          <path d="M21 3v5h-5"/>
+        </svg>
+      </button>
+    </div>
     <div class="fact" id="fact"></div>
   </div>
 
@@ -511,8 +542,7 @@ body {
     "The Road to Hana features 620 curves and 59 bridges — most of them one lane.",
     "Maui is home to the endangered Hawaiian monk seal, one of the rarest seals on Earth.",
     "Haleakalā means 'House of the Sun' in Hawaiian — legend says the demigod Māui lassoed the sun here.",
-    "Maui's Molokini Crater is one of only three volcanic calderas in the world that you can snorkel inside.",
-    "The Valley Isle produces 80% of the world's macadamia nuts.",
+    "Molokini Crater is one of only three volcanic calderas in the world you can snorkel inside.",
     "Maui's ʻĪao Needle rises 1,200 feet from the valley floor — taller than the Eiffel Tower.",
     "Winter months bring humpback whales to Maui's warm waters to give birth and nurse their calves.",
     "Maui has no snakes. It's illegal to bring them to the island.",
@@ -520,20 +550,23 @@ body {
     "Lahaina was once the capital of the Hawaiian Kingdom and a major 19th-century whaling port.",
     "Maui's beaches come in white, black, red, and even green sand — from olivine crystals.",
     "The ukulele isn't native to Hawaii — Portuguese immigrants brought it in the 1880s.",
-    "Maui's Hoʻokipa Beach is considered the windsurfing capital of the world.",
-    "Hawaiian is one of the oldest languages in the world, with only 13 letters in its alphabet."
+    "Hoʻokipa Beach is considered the windsurfing capital of the world.",
+    "Hawaiian has only 13 letters in its alphabet, making it one of the shortest.",
+    "Maui was named after the Polynesian demigod Māui, who fished the Hawaiian islands from the sea.",
+    "The sunrise from Haleakalā is so popular that reservations are required months in advance.",
+    "Maui's Baldwin Beach was once a sugar plantation — remnants of the old mill still stand nearby.",
+    "Sea turtles in Hawaii are called honu and are considered sacred in Hawaiian culture.",
+    "Maui's North Shore receives some of the biggest waves in the world during winter swells.",
+    "The average temperature in Maui stays between 23–29°C year-round — perfect beach weather."
   ];
 
   var WEATHER_ICONS = {
-    0: '☀️', 1: '🌤', 2: '⛅', 3: '☁️',
-    45: '🌫', 48: '🌫',
-    51: '🌦', 53: '🌦', 55: '🌧',
-    61: '🌧', 63: '🌧', 65: '🌧',
-    80: '🌦', 81: '🌧', 82: '🌧',
-    95: '⛈'
+    0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',
+    51:'🌦',53:'🌦',55:'🌧',61:'🌧',63:'🌧',65:'🌧',
+    80:'🌦',81:'🌧',82:'🌧',95:'⛈'
   };
 
-  var start, end, time;
+  var start, end, time, currentFactIndex;
 
   function init() {
     start = localStorage.getItem('maui_start') || TRIP_START;
@@ -544,11 +577,14 @@ body {
     document.getElementById('inputTime').value = time;
     document.getElementById('inputEnd').value = end;
 
+    var day = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+    currentFactIndex = day % FACTS.length;
+
     updateDates();
     updateCountdown();
     updateClocks();
     loadPhoto();
-    loadFact();
+    showFact();
     fetchWeather();
 
     setInterval(updateCountdown, 1000);
@@ -557,18 +593,18 @@ body {
 
   function updateDates() {
     var fmt = function(d) {
-      return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      return new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
     };
     document.getElementById('dates').textContent = fmt(start) + ' — ' + fmt(end);
   }
 
   function updateCountdown() {
     var now = new Date();
-    var target = new Date(start + 'T' + time + ':00');
+    var target = new Date(start+'T'+time+':00');
     var diff = target - now;
 
     if (diff <= 0) {
-      var endDate = new Date(end + 'T23:59:59');
+      var endDate = new Date(end+'T23:59:59');
       if (now <= endDate) {
         document.getElementById('cDays').textContent = '🌺';
         document.getElementById('cHours').textContent = '🌺';
@@ -580,99 +616,109 @@ body {
       return;
     }
 
-    var d = Math.floor(diff / 86400000);
-    var h = Math.floor((diff % 86400000) / 3600000);
-    var m = Math.floor((diff % 3600000) / 60000);
-    var s = Math.floor((diff % 60000) / 1000);
+    var d = Math.floor(diff/86400000);
+    var h = Math.floor((diff%86400000)/3600000);
+    var m = Math.floor((diff%3600000)/60000);
+    var s = Math.floor((diff%60000)/1000);
 
     document.getElementById('cDays').textContent = d;
-    document.getElementById('cHours').textContent = String(h).padStart(2, '0');
-    document.getElementById('cMins').textContent = String(m).padStart(2, '0');
-    document.getElementById('cSecs').textContent = String(s).padStart(2, '0');
+    document.getElementById('cHours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cMins').textContent = String(m).padStart(2,'0');
+    document.getElementById('cSecs').textContent = String(s).padStart(2,'0');
   }
 
   function updateClocks() {
     var now = new Date();
-    var mOpts = { timeZone: TZ, hour: '2-digit', minute: '2-digit', hour12: true };
-    var mDate = { timeZone: TZ, weekday: 'short', month: 'short', day: 'numeric' };
-    document.getElementById('mauiTime').textContent = now.toLocaleTimeString('en-US', mOpts);
-    document.getElementById('mauiDate').textContent = now.toLocaleDateString('en-US', mDate);
+    var mOpts = {timeZone:TZ,hour:'2-digit',minute:'2-digit',hour12:true};
+    var mDate = {timeZone:TZ,weekday:'short',month:'short',day:'numeric'};
+    document.getElementById('mauiTime').textContent = now.toLocaleTimeString('en-US',mOpts);
+    document.getElementById('mauiDate').textContent = now.toLocaleDateString('en-US',mDate);
 
-    var hOpts = { hour: '2-digit', minute: '2-digit', hour12: true };
-    document.getElementById('homeTime').textContent = now.toLocaleTimeString('en-US', hOpts);
+    var hOpts = {hour:'2-digit',minute:'2-digit',hour12:true};
+    document.getElementById('homeTime').textContent = now.toLocaleTimeString('en-US',hOpts);
 
-    var utc1 = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
-    var utc2 = new Date(now.toLocaleString('en-US', { timeZone: TZ }));
-    var mauiOff = (utc1 - utc2) / 3600000;
-    var localOff = -now.getTimezoneOffset() / 60;
+    var utc1 = new Date(now.toLocaleString('en-US',{timeZone:'UTC'}));
+    var utc2 = new Date(now.toLocaleString('en-US',{timeZone:TZ}));
+    var mauiOff = (utc1-utc2)/3600000;
+    var localOff = -now.getTimezoneOffset()/60;
     var diff = mauiOff - localOff;
-    document.getElementById('timeDiff').textContent = (diff >= 0 ? '+' : '') + diff + 'h from Maui';
+    document.getElementById('timeDiff').textContent = (diff>=0?'+':'') + diff + 'h from Maui';
   }
 
   function loadPhoto() {
-    var day = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+    var day = Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/86400000);
     var p = PHOTOS[day % PHOTOS.length];
-    var url = 'https://images.unsplash.com/photo-' + p.id + '?w=1200&q=80&auto=format&fit=crop';
+    var url = 'https://images.unsplash.com/photo-'+p.id+'?w=1200&q=80&auto=format&fit=crop';
     var el = document.getElementById('bgPhoto');
     var img = new Image();
-    img.onload = function() { el.style.backgroundImage = 'url(' + url + ')'; el.style.opacity = '1'; };
-    img.onerror = function() { el.style.background = 'linear-gradient(150deg,#b8c9a3,#8ba888,#6b8f71)'; el.style.opacity = '1'; };
+    img.onload = function(){el.style.backgroundImage='url('+url+')';el.style.opacity='1';};
+    img.onerror = function(){el.style.background='linear-gradient(150deg,#b8c9a3,#8ba888,#6b8f71)';el.style.opacity='1';};
     img.src = url;
     document.getElementById('landmark').textContent = p.name;
   }
 
-  function loadFact() {
-    var day = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-    document.getElementById('fact').textContent = FACTS[day % FACTS.length];
+  function showFact() {
+    document.getElementById('fact').textContent = FACTS[currentFactIndex];
+  }
+
+  function nextFact() {
+    currentFactIndex = (currentFactIndex + 1) % FACTS.length;
+    showFact();
+    var btn = document.getElementById('refreshFact');
+    btn.classList.add('spin');
+    setTimeout(function(){ btn.classList.remove('spin'); }, 400);
   }
 
   function fetchWeather() {
-    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + LAT + '&longitude=' + LON + '&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=' + TZ + '&forecast_days=7';
-    fetch(url).then(function(r) { return r.json(); }).then(function(data) {
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude='+LAT+'&longitude='+LON+'&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=celsius&timezone='+TZ+'&forecast_days=7';
+    fetch(url).then(function(r){return r.json();}).then(function(data){
       var html = '<div class="weather-scroll"><div class="weather-days">';
-      for (var i = 0; i < data.daily.time.length; i++) {
-        var dt = new Date(data.daily.time[i] + 'T12:00:00');
-        var dn = dt.toLocaleDateString('en-US', { weekday: 'short' });
+      for(var i=0;i<data.daily.time.length;i++){
+        var dt = new Date(data.daily.time[i]+'T12:00:00');
+        var dn = dt.toLocaleDateString('en-US',{weekday:'short'});
         var ic = WEATHER_ICONS[data.daily.weather_code[i]] || '🌤';
         var hi = Math.round(data.daily.temperature_2m_max[i]);
         var lo = Math.round(data.daily.temperature_2m_min[i]);
-        html += '<div class="weather-day"><div class="d">' + dn + '</div><div class="i">' + ic + '</div><div class="t">' + hi + '°</div><div class="tl">' + lo + '°</div></div>';
+        html += '<div class="weather-day"><div class="d">'+dn+'</div><div class="i">'+ic+'</div><div class="t">'+hi+'°</div><div class="tl">'+lo+'°</div></div>';
       }
       html += '</div></div>';
       document.getElementById('weather').innerHTML = html;
-    }).catch(function() {
+    }).catch(function(){
       document.getElementById('weather').innerHTML = '<div style="color:var(--text-muted);font-size:0.75rem;">Could not load weather</div>';
     });
   }
 
   // Settings
-  document.getElementById('settingsBtn').addEventListener('click', function() {
+  document.getElementById('settingsBtn').addEventListener('click',function(){
     document.getElementById('settingsPanel').classList.toggle('open');
   });
 
-  document.getElementById('saveBtn').addEventListener('click', function() {
+  document.getElementById('saveBtn').addEventListener('click',function(){
     var d = document.getElementById('inputDate').value;
     var t = document.getElementById('inputTime').value;
     var e = document.getElementById('inputEnd').value;
-    if (d) { start = d; localStorage.setItem('maui_start', d); }
-    if (t) { time = t; localStorage.setItem('maui_time', t); }
-    if (e) { end = e; localStorage.setItem('maui_end', e); }
+    if(d){start=d;localStorage.setItem('maui_start',d);}
+    if(t){time=t;localStorage.setItem('maui_time',t);}
+    if(e){end=e;localStorage.setItem('maui_end',e);}
     updateDates();
     updateCountdown();
     document.getElementById('settingsPanel').classList.remove('open');
   });
 
-  document.addEventListener('click', function(e) {
+  document.addEventListener('click',function(e){
     var panel = document.getElementById('settingsPanel');
     var btn = document.getElementById('settingsBtn');
-    if (!panel.contains(e.target) && !btn.contains(e.target)) {
+    if(!panel.contains(e.target) && !btn.contains(e.target)){
       panel.classList.remove('open');
     }
   });
 
+  // Refresh fact button
+  document.getElementById('refreshFact').addEventListener('click', nextFact);
+
   // Dark mode theme color
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#141414');
+  if(window.matchMedia('(prefers-color-scheme:dark)').matches){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#141414');
   }
 
   init();
