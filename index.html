@@ -6,688 +6,576 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Maui">
-<meta name="theme-color" content="#faf8f4">
+<meta name="theme-color" content="#f7f5f0">
 <title>Maui</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23faf8f4' width='180' height='180' rx='40'/><text x='90' y='130' font-size='100' text-anchor='middle'>🌿</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌴</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23f7f5f0' width='180' height='180' rx='40'/><text x='90' y='125' font-size='90' text-anchor='middle'>🌴</text></svg>">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap');
 
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
+:root {
+  --bg: #f7f5f0;
+  --card: rgba(255,255,255,0.72);
+  --card-solid: #ffffff;
+  --sage: #6b8f71;
+  --sage-soft: #8ba888;
+  --sage-deep: #4a6b4e;
+  --warm: #c4a574;
+  --text: #2d2d2d;
+  --text-soft: #6b6b6b;
+  --text-muted: #9a9a9a;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 2px 8px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.05), 0 16px 48px rgba(0,0,0,0.08);
+  --radius: 20px;
+  --radius-sm: 12px;
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ===== Background ===== */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.bg-photo {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 30%;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(247,245,240,0.2) 0%,
+    rgba(247,245,240,0.1) 25%,
+    rgba(247,245,240,0.4) 50%,
+    rgba(247,245,240,0.92) 75%,
+    rgba(247,245,240,1) 100%
+  );
+}
+
+/* ===== Layout ===== */
+.app {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  padding: calc(48px + var(--safe-t)) calc(20px + var(--safe-r)) calc(32px + var(--safe-b)) calc(20px + var(--safe-l));
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* ===== Header ===== */
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3.5rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.header .dates {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/* ===== Countdown Hero ===== */
+.countdown-card {
+  background: var(--card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+}
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.countdown-item {
+  text-align: center;
+}
+
+.countdown-item .num {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3.2rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.countdown-item .unit {
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--sage);
+  margin-top: 8px;
+}
+
+.countdown-label {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(107,143,113,0.1);
+}
+
+.countdown-label span {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ===== Time Cards Row ===== */
+.time-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.time-card {
+  background: var(--card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.time-card .label {
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--sage);
+  margin-bottom: 6px;
+}
+
+.time-card .time {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.time-card .detail {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ===== Weather ===== */
+.weather-card {
+  background: var(--card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+}
+
+.weather-card .label {
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--sage);
+  margin-bottom: 12px;
+}
+
+.weather-scroll {
+  margin: 0 -16px;
+  padding: 0 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.weather-scroll::-webkit-scrollbar { display: none; }
+
+.weather-days {
+  display: flex;
+  gap: 6px;
+}
+
+.weather-day {
+  flex: 0 0 auto;
+  width: 52px;
+  text-align: center;
+  padding: 10px 4px;
+  border-radius: 10px;
+  background: rgba(107,143,113,0.06);
+}
+
+.weather-day .d { font-size: 0.55rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.weather-day .i { font-size: 1.1rem; margin: 6px 0; line-height: 1; }
+.weather-day .t { font-size: 0.75rem; font-weight: 600; color: var(--text); }
+.weather-day .tl { font-size: 0.65rem; color: var(--text-muted); font-weight: 400; }
+
+/* ===== Daily Fact ===== */
+.fact-card {
+  background: linear-gradient(135deg, var(--sage) 0%, var(--sage-deep) 100%);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 16px;
+}
+
+.fact-card .label {
+  font-size: 0.55rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 8px;
+}
+
+.fact-card .fact {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #fff;
+  font-weight: 400;
+}
+
+/* ===== Landmark ===== */
+.landmark {
+  text-align: center;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.landmark span {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* ===== Settings ===== */
+.settings-btn {
+  position: fixed;
+  top: calc(12px + var(--safe-t));
+  right: calc(12px + var(--safe-r));
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow);
+  color: var(--text-soft);
+  font-size: 1.1rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s, background 0.2s;
+}
+.settings-btn:active { transform: scale(0.92); background: var(--card-solid); }
+
+.settings-panel {
+  display: none;
+  position: fixed;
+  top: calc(64px + var(--safe-t));
+  right: calc(12px + var(--safe-r));
+  z-index: 100;
+  width: calc(100% - 24px - var(--safe-l) - var(--safe-r));
+  max-width: 300px;
+  background: var(--card-solid);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  box-shadow: var(--shadow-lg);
+}
+.settings-panel.open { display: block; }
+
+.settings-panel label {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.settings-panel input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+  margin-bottom: 16px;
+  -webkit-appearance: none;
+  transition: border-color 0.2s;
+}
+.settings-panel input:focus { outline: none; border-color: var(--sage); }
+
+.settings-panel button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: var(--sage);
+  color: #fff;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s, transform 0.15s;
+}
+.settings-panel button:active { transform: scale(0.98); background: var(--sage-deep); }
+
+/* ===== Trip Arrived ===== */
+.arrived .num { color: var(--sage); }
+
+/* ===== Dark Mode ===== */
+@media (prefers-color-scheme: dark) {
   :root {
-    --cream: #faf8f4;
-    --sage: #7a8c6e;
-    --sage-light: #a3b496;
-    --sage-dark: #5c6b52;
-    --text-dark: #2c2c2b;
-    --text-mid: #5a5a56;
-    --text-light: #8a8a84;
-    --border: rgba(122, 140, 110, 0.15);
-    --card-bg: rgba(250, 248, 244, 0.92);
-    --card-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 6px 20px rgba(0,0,0,0.05);
-    --safe-top: env(safe-area-inset-top, 0px);
-    --safe-bottom: env(safe-area-inset-bottom, 0px);
-    --safe-left: env(safe-area-inset-left, 0px);
-    --safe-right: env(safe-area-inset-right, 0px);
+    --bg: #141414;
+    --card: rgba(32,32,32,0.8);
+    --card-solid: #1e1e1e;
+    --sage: #8fb895;
+    --sage-soft: #a8c9ac;
+    --sage-deep: #6a9970;
+    --text: #f0f0f0;
+    --text-soft: #a0a0a0;
+    --text-muted: #6a6a6a;
   }
-
-  html {
-    -webkit-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    color: var(--text-dark);
-    background: var(--cream);
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: none;
-  }
-
-  /* Background photo */
-  .bg-image {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    background-size: cover;
-    background-position: center;
-    transition: opacity 1.8s ease;
-    opacity: 0;
-    will-change: opacity;
-  }
-
-  .bg-image::after {
-    content: '';
-    position: absolute;
-    inset: 0;
+  .bg::after {
     background: linear-gradient(
-      180deg,
-      rgba(250, 248, 244, 0.45) 0%,
-      rgba(250, 248, 244, 0.25) 30%,
-      rgba(250, 248, 244, 0.5) 60%,
-      rgba(250, 248, 244, 0.94) 100%
+      to bottom,
+      rgba(20,20,20,0.3) 0%,
+      rgba(20,20,20,0.2) 25%,
+      rgba(20,20,20,0.5) 50%,
+      rgba(20,20,20,0.95) 75%,
+      rgba(20,20,20,1) 100%
     );
   }
+  .weather-day { background: rgba(143,184,149,0.08); }
+  .settings-panel input { background: #252525; border-color: rgba(255,255,255,0.08); }
+}
 
-  /* Main layout */
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 480px;
-    margin: 0 auto;
-    padding: calc(2rem + var(--safe-top)) calc(1.25rem + var(--safe-right)) calc(1.5rem + var(--safe-bottom)) calc(1.25rem + var(--safe-left));
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-    display: flex;
-    flex-direction: column;
-    gap: 0.875rem;
-  }
+/* ===== Standalone PWA ===== */
+@media (display-mode: standalone) {
+  .app { padding-top: calc(24px + var(--safe-t)); }
+}
 
-  /* Header */
-  header {
-    text-align: center;
-    padding: 0.5rem 0 0.25rem;
-  }
+/* ===== Small screens ===== */
+@media (max-width: 375px) {
+  .header h1 { font-size: 2.8rem; }
+  .countdown-item .num { font-size: 2.6rem; }
+  .countdown-card { padding: 24px 16px; }
+}
 
-  header h1 {
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-size: 2.75rem;
-    font-weight: 400;
-    color: var(--text-dark);
-    letter-spacing: -0.01em;
-    line-height: 1;
-  }
-
-  header .subtitle {
-    font-size: 0.8rem;
-    color: var(--text-light);
-    margin-top: 0.4rem;
-    font-weight: 400;
-    letter-spacing: 0.015em;
-  }
-
-  /* Tulip divider */
-  .divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    margin: 0.15rem 0;
-  }
-
-  .divider .line {
-    width: 48px;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .divider svg {
-    width: 18px;
-    height: 18px;
-    opacity: 0.4;
-    flex-shrink: 0;
-  }
-
-  /* Cards */
-  .card {
-    background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.25rem;
-    box-shadow: var(--card-shadow);
-  }
-
-  .card-label {
-    font-size: 0.6rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--sage);
-    margin-bottom: 0.75rem;
-  }
-
-  /* Countdown */
-  .countdown-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.25rem;
-    text-align: center;
-  }
-
-  .countdown-unit .value {
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-size: 2.6rem;
-    font-weight: 400;
-    line-height: 1;
-    color: var(--text-dark);
-  }
-
-  .countdown-unit .label {
-    font-size: 0.55rem;
-    font-weight: 600;
-    color: var(--text-light);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-top: 0.35rem;
-  }
-
-  /* Clocks */
-  .clocks-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-  }
-
-  .clock-time {
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-size: 1.45rem;
-    font-weight: 400;
-    color: var(--text-dark);
-    font-variant-numeric: tabular-nums;
-    line-height: 1.2;
-  }
-
-  .clock-detail {
-    font-size: 0.68rem;
-    color: var(--text-light);
-    margin-top: 0.2rem;
-    line-height: 1.3;
-  }
-
-  /* Weather */
-  .weather-scroll {
-    margin: 0 -1.25rem;
-    padding: 0 1.25rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .weather-scroll::-webkit-scrollbar { display: none; }
-
-  .weather-grid {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(64px, 1fr));
-    gap: 0.4rem;
-    min-width: min-content;
-  }
-
-  .weather-day {
-    text-align: center;
-    padding: 0.7rem 0.35rem;
-    border-radius: 12px;
-    background: rgba(122, 140, 110, 0.05);
-    border: 1px solid rgba(122, 140, 110, 0.07);
-    min-width: 60px;
-  }
-
-  .weather-day .day-name {
-    font-size: 0.55rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-light);
-  }
-
-  .weather-day .weather-icon {
-    font-size: 1.2rem;
-    margin: 0.35rem 0;
-    line-height: 1;
-  }
-
-  .weather-day .temp {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-dark);
-  }
-
-  .weather-day .temp-low {
-    font-size: 0.65rem;
-    color: var(--text-light);
-    font-weight: 400;
-  }
-
-  .weather-day .condition {
-    font-size: 0.5rem;
-    color: var(--text-light);
-    margin-top: 0.15rem;
-    line-height: 1.2;
-  }
-
-  .weather-note {
-    text-align: center;
-    font-size: 0.65rem;
-    color: var(--text-light);
-    margin-top: 0.6rem;
-    font-style: italic;
-  }
-
-  .weather-loading {
-    text-align: center;
-    color: var(--text-light);
-    padding: 1.25rem;
-    font-size: 0.75rem;
-  }
-
-  /* Trip arrived */
-  .trip-arrived .value {
-    color: var(--sage);
-  }
-
-  /* Landmark caption */
-  .landmark {
-    text-align: center;
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    color: var(--sage);
-    padding-top: 0.75rem;
-    margin-top: auto;
-    opacity: 0.6;
-  }
-
-  /* Settings */
-  .settings-toggle {
-    position: fixed;
-    top: calc(0.75rem + var(--safe-top));
-    right: calc(0.75rem + var(--safe-right));
-    z-index: 10;
-    background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--text-light);
-    font-size: 1rem;
-    transition: all 0.2s;
-    box-shadow: var(--card-shadow);
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .settings-toggle:active {
-    transform: scale(0.92);
-    background: rgba(250, 248, 244, 1);
-  }
-
-  .settings-panel {
-    display: none;
-    position: fixed;
-    top: calc(3.5rem + var(--safe-top));
-    right: calc(0.75rem + var(--safe-right));
-    z-index: 10;
-    width: calc(100vw - 1.5rem - var(--safe-left) - var(--safe-right));
-    max-width: 280px;
-  }
-
-  .settings-panel.open { display: block; }
-
-  .settings-panel label {
-    display: block;
-    font-size: 0.68rem;
-    font-weight: 500;
-    color: var(--text-light);
-    margin-bottom: 0.3rem;
-  }
-
-  .settings-panel input {
-    width: 100%;
-    padding: 0.6rem 0.75rem;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.8);
-    color: var(--text-dark);
-    font-family: inherit;
-    font-size: 16px;
-    margin-bottom: 0.65rem;
-    outline: none;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-
-  .settings-panel input:focus {
-    border-color: var(--sage);
-  }
-
-  .settings-panel button {
-    width: 100%;
-    padding: 0.7rem;
-    border-radius: 10px;
-    border: none;
-    background: var(--sage);
-    color: white;
-    font-family: inherit;
-    font-weight: 600;
-    font-size: 0.8rem;
-    cursor: pointer;
-    letter-spacing: 0.03em;
-    transition: all 0.15s;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .settings-panel button:active {
-    transform: scale(0.97);
-    background: var(--sage-dark);
-  }
-
-  /* ---- Desktop / larger screens ---- */
-  @media (min-width: 481px) {
-    .container {
-      max-width: 720px;
-      padding-top: calc(3.5rem + var(--safe-top));
-      gap: 1.1rem;
-    }
-
-    header h1 { font-size: 3.2rem; }
-
-    .card { padding: 1.5rem; border-radius: 16px; }
-
-    .countdown-unit .value { font-size: 3.4rem; }
-    .countdown-unit .label { font-size: 0.6rem; }
-
-    .clock-time { font-size: 1.7rem; }
-    .clock-detail { font-size: 0.75rem; }
-
-    .weather-scroll {
-      margin: 0;
-      padding: 0;
-      overflow-x: visible;
-    }
-
-    .weather-grid {
-      grid-template-columns: repeat(7, 1fr);
-      min-width: auto;
-    }
-
-    .weather-day { padding: 0.85rem 0.35rem; min-width: auto; }
-    .weather-day .weather-icon { font-size: 1.35rem; }
-    .weather-day .temp { font-size: 0.85rem; }
-  }
-
-  /* Larger phones in landscape or iPad */
-  @media (min-width: 768px) {
-    .container { max-width: 680px; }
-    .clocks-row { gap: 1rem; }
-  }
-
-  /* Very small phones (iPhone SE) */
-  @media (max-width: 375px) {
-    .container { gap: 0.75rem; padding-left: 1rem; padding-right: 1rem; }
-    header h1 { font-size: 2.2rem; }
-    .countdown-unit .value { font-size: 2rem; }
-    .card { padding: 1rem; border-radius: 14px; }
-    .card-label { margin-bottom: 0.6rem; }
-    .clock-time { font-size: 1.25rem; }
-    .divider .line { width: 36px; }
-  }
-
-  /* Standalone mode (Add to Home Screen) */
-  @media (display-mode: standalone) {
-    body { overscroll-behavior: none; }
-    .container {
-      padding-top: calc(1rem + var(--safe-top));
-    }
-  }
-
-  /* Dark mode */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --cream: #1a1c1a;
-      --sage: #8fa881;
-      --sage-light: #a8c49a;
-      --sage-dark: #6b8a5e;
-      --text-dark: #e8e6e1;
-      --text-mid: #b0aea8;
-      --text-light: #7a7974;
-      --border: rgba(143, 168, 129, 0.15);
-      --card-bg: rgba(30, 32, 30, 0.92);
-      --card-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 6px 20px rgba(0,0,0,0.15);
-    }
-
-    .bg-image::after {
-      background: linear-gradient(
-        180deg,
-        rgba(26, 28, 26, 0.5) 0%,
-        rgba(26, 28, 26, 0.3) 30%,
-        rgba(26, 28, 26, 0.55) 60%,
-        rgba(26, 28, 26, 0.95) 100%
-      );
-    }
-
-    .weather-day {
-      background: rgba(143, 168, 129, 0.06);
-      border-color: rgba(143, 168, 129, 0.08);
-    }
-
-    .settings-panel input {
-      background: rgba(40, 42, 40, 0.9);
-      border-color: var(--border);
-      color: var(--text-dark);
-    }
-
-    .settings-toggle:active {
-      background: rgba(40, 42, 40, 1);
-    }
-
-    meta[name="theme-color"] { content: "#1a1c1a"; }
-  }
+/* ===== Larger screens ===== */
+@media (min-width: 500px) {
+  .app { max-width: 480px; padding-left: 32px; padding-right: 32px; }
+  .header h1 { font-size: 4rem; }
+  .countdown-item .num { font-size: 3.6rem; }
+}
 </style>
 </head>
 <body>
 
-<div class="bg-image" id="bgImage"></div>
-
-<button class="settings-toggle" id="settingsBtn" aria-label="Settings">&#9881;</button>
-<div class="settings-panel card" id="settingsPanel">
-  <label for="tripDateInput">Departure date</label>
-  <input type="date" id="tripDateInput">
-  <label for="tripTimeInput">Departure time</label>
-  <input type="time" id="tripTimeInput">
-  <label for="tripEndInput">Return date</label>
-  <input type="date" id="tripEndInput">
-  <button id="saveSettings">Save</button>
+<div class="bg">
+  <div class="bg-photo" id="bgPhoto"></div>
 </div>
 
-<div class="container">
-  <header>
+<button class="settings-btn" id="settingsBtn" aria-label="Settings">&#9881;</button>
+<div class="settings-panel" id="settingsPanel">
+  <label>Departure Date</label>
+  <input type="date" id="inputDate">
+  <label>Departure Time</label>
+  <input type="time" id="inputTime">
+  <label>Return Date</label>
+  <input type="date" id="inputEnd">
+  <button id="saveBtn">Save</button>
+</div>
+
+<div class="app">
+  <header class="header">
     <h1>Maui</h1>
-    <div class="divider">
-      <div class="line"></div>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" color="#7a8c6e">
-        <path d="M12 22V10"/>
-        <path d="M12 13C12 13 8 10 8 6.5C8 4 10 2 12 2C14 2 16 4 16 6.5C16 10 12 13 12 13Z"/>
-        <path d="M9 17C7 17.5 4.5 17 3 15C5 15 7 15.5 9 17Z"/>
-        <path d="M15 17C17 17.5 19.5 17 21 15C19 15 17 15.5 15 17Z"/>
-      </svg>
-      <div class="line"></div>
-    </div>
-    <p class="subtitle" id="tripDateDisplay"></p>
+    <p class="dates" id="dates"></p>
   </header>
 
-  <div class="card">
-    <div class="card-label">Countdown</div>
+  <div class="countdown-card">
     <div class="countdown-grid" id="countdown">
-      <div class="countdown-unit">
-        <div class="value" id="days">--</div>
-        <div class="label">Days</div>
-      </div>
-      <div class="countdown-unit">
-        <div class="value" id="hours">--</div>
-        <div class="label">Hours</div>
-      </div>
-      <div class="countdown-unit">
-        <div class="value" id="minutes">--</div>
-        <div class="label">Minutes</div>
-      </div>
-      <div class="countdown-unit">
-        <div class="value" id="seconds">--</div>
-        <div class="label">Seconds</div>
-      </div>
+      <div class="countdown-item"><div class="num" id="cDays">--</div><div class="unit">Days</div></div>
+      <div class="countdown-item"><div class="num" id="cHours">--</div><div class="unit">Hours</div></div>
+      <div class="countdown-item"><div class="num" id="cMins">--</div><div class="unit">Mins</div></div>
+      <div class="countdown-item"><div class="num" id="cSecs">--</div><div class="unit">Secs</div></div>
+    </div>
+    <div class="countdown-label"><span>until takeoff</span></div>
+  </div>
+
+  <div class="time-row">
+    <div class="time-card">
+      <div class="label">Maui</div>
+      <div class="time" id="mauiTime">--:--</div>
+      <div class="detail" id="mauiDate"></div>
+    </div>
+    <div class="time-card">
+      <div class="label">Home</div>
+      <div class="time" id="homeTime">--:--</div>
+      <div class="detail" id="timeDiff"></div>
     </div>
   </div>
 
-  <div class="clocks-row">
-    <div class="card">
-      <div class="card-label">Maui Time</div>
-      <div class="clock-time" id="hawaiiTime">--:--:--</div>
-      <div class="clock-detail" id="hawaiiDate"></div>
-    </div>
-    <div class="card">
-      <div class="card-label">Your Time</div>
-      <div class="clock-time" id="localTime">--:--:--</div>
-      <div class="clock-detail" id="timeDiff"></div>
-    </div>
+  <div class="weather-card">
+    <div class="label">Maui Weather</div>
+    <div id="weather"><div style="color:var(--text-muted);font-size:0.75rem;padding:8px 0;">Loading...</div></div>
   </div>
 
-  <div class="card">
-    <div class="card-label">Maui Forecast</div>
-    <div id="weatherContent" class="weather-loading">Loading forecast&hellip;</div>
+  <div class="fact-card">
+    <div class="label">Did You Know?</div>
+    <div class="fact" id="fact"></div>
   </div>
 
-  <div class="landmark" id="landmarkName"></div>
+  <div class="landmark"><span id="landmark"></span></div>
 </div>
 
 <script>
-(function () {
-  var DEFAULT_TRIP_START = '2026-03-26';
-  var DEFAULT_TRIP_END = '2026-04-02';
-  var DEFAULT_TRIP_TIME = '17:00';
-  var HAWAII_TZ = 'Pacific/Honolulu';
-  var MAUI_LAT = 20.7984;
-  var MAUI_LON = -156.3319;
+(function() {
+  var TRIP_START = '2026-03-26';
+  var TRIP_END = '2026-04-02';
+  var TRIP_TIME = '17:00';
+  var TZ = 'Pacific/Honolulu';
+  var LAT = 20.7984, LON = -156.3319;
 
   var PHOTOS = [
     { id: '1542259009477-d625272157b7', name: 'Road to Hana' },
-    { id: '1559828892-20b41ddbbfaa', name: 'Haleakal\u0101 Crater' },
+    { id: '1559828892-20b41ddbbfaa', name: 'Haleakalā Crater' },
     { id: '1505852679233-d9fd70aff56d', name: 'West Maui Mountains' },
-    { id: '1469854523086-cc02fe5d8800', name: "Ka\u02BBanapali Beach" },
+    { id: '1469854523086-cc02fe5d8800', name: 'Kaʻanapali Beach' },
     { id: '1544551763-46a013bb70d5', name: 'Maui Coastline' },
     { id: '1507525428034-b723cf961d3e', name: 'Wailea Beach' },
     { id: '1514395462725-fb4566210144', name: 'Molokini Crater' },
     { id: '1518509562904-e7ef99cdcc86', name: 'Napili Bay' },
-    { id: '1559494007-9f5847c49d94', name: "Ho\u02BBokipa Beach" },
-    { id: '1523978591478-c753949ff840', name: "\u02BBAo Valley" },
+    { id: '1559494007-9f5847c49d94', name: 'Hoʻokipa Beach' },
+    { id: '1523978591478-c753949ff840', name: 'ʻĪao Valley' }
   ];
 
-  var WEATHER_MAP = {
-    0: ['\u2600\uFE0E', 'Clear'],
-    1: ['\u2600\uFE0E', 'Mostly clear'],
-    2: ['\u26C5', 'Partly cloudy'],
-    3: ['\u2601\uFE0E', 'Overcast'],
-    45: ['\u2601\uFE0E', 'Fog'], 48: ['\u2601\uFE0E', 'Fog'],
-    51: ['\uD83C\uDF26\uFE0E', 'Light drizzle'], 53: ['\uD83C\uDF26\uFE0E', 'Drizzle'],
-    55: ['\uD83C\uDF27\uFE0E', 'Heavy drizzle'],
-    61: ['\uD83C\uDF27\uFE0E', 'Light rain'], 63: ['\uD83C\uDF27\uFE0E', 'Rain'],
-    65: ['\uD83C\uDF27\uFE0E', 'Heavy rain'],
-    80: ['\uD83C\uDF26\uFE0E', 'Showers'], 81: ['\uD83C\uDF27\uFE0E', 'Showers'],
-    82: ['\uD83C\uDF27\uFE0E', 'Heavy showers'],
-    95: ['\u26C8', 'Thunderstorm'],
+  var FACTS = [
+    "Maui's Haleakalā volcano is so tall you can watch the sunrise above the clouds at 10,023 feet.",
+    "The Road to Hana features 620 curves and 59 bridges — most of them one lane.",
+    "Maui is home to the endangered Hawaiian monk seal, one of the rarest seals on Earth.",
+    "Haleakalā means 'House of the Sun' in Hawaiian — legend says the demigod Māui lassoed the sun here.",
+    "Maui's Molokini Crater is one of only three volcanic calderas in the world that you can snorkel inside.",
+    "The Valley Isle produces 80% of the world's macadamia nuts.",
+    "Maui's ʻĪao Needle rises 1,200 feet from the valley floor — taller than the Eiffel Tower.",
+    "Winter months bring humpback whales to Maui's warm waters to give birth and nurse their calves.",
+    "Maui has no snakes. It's illegal to bring them to the island.",
+    "The ancient Hawaiians navigated to Maui using only the stars, waves, and bird flight patterns.",
+    "Lahaina was once the capital of the Hawaiian Kingdom and a major 19th-century whaling port.",
+    "Maui's beaches come in white, black, red, and even green sand — from olivine crystals.",
+    "The ukulele isn't native to Hawaii — Portuguese immigrants brought it in the 1880s.",
+    "Maui's Hoʻokipa Beach is considered the windsurfing capital of the world.",
+    "Hawaiian is one of the oldest languages in the world, with only 13 letters in its alphabet."
+  ];
+
+  var WEATHER_ICONS = {
+    0: '☀️', 1: '🌤', 2: '⛅', 3: '☁️',
+    45: '🌫', 48: '🌫',
+    51: '🌦', 53: '🌦', 55: '🌧',
+    61: '🌧', 63: '🌧', 65: '🌧',
+    80: '🌦', 81: '🌧', 82: '🌧',
+    95: '⛈'
   };
 
-  var tripStart, tripEnd, tripTime;
+  var start, end, time;
 
-  function loadSettings() {
-    tripStart = localStorage.getItem('hw_tripStart') || DEFAULT_TRIP_START;
-    tripEnd = localStorage.getItem('hw_tripEnd') || DEFAULT_TRIP_END;
-    tripTime = localStorage.getItem('hw_tripTime') || DEFAULT_TRIP_TIME;
-    document.getElementById('tripDateInput').value = tripStart;
-    document.getElementById('tripTimeInput').value = tripTime;
-    document.getElementById('tripEndInput').value = tripEnd;
-    updateTripDisplay();
-  }
+  function init() {
+    start = localStorage.getItem('maui_start') || TRIP_START;
+    end = localStorage.getItem('maui_end') || TRIP_END;
+    time = localStorage.getItem('maui_time') || TRIP_TIME;
 
-  function saveSettings() {
-    var s = document.getElementById('tripDateInput').value;
-    var t = document.getElementById('tripTimeInput').value;
-    var e = document.getElementById('tripEndInput').value;
-    if (s) { tripStart = s; localStorage.setItem('hw_tripStart', s); }
-    if (t) { tripTime = t; localStorage.setItem('hw_tripTime', t); }
-    if (e) { tripEnd = e; localStorage.setItem('hw_tripEnd', e); }
-    updateTripDisplay();
+    document.getElementById('inputDate').value = start;
+    document.getElementById('inputTime').value = time;
+    document.getElementById('inputEnd').value = end;
+
+    updateDates();
+    updateCountdown();
+    updateClocks();
+    loadPhoto();
+    loadFact();
     fetchWeather();
-    document.getElementById('settingsPanel').classList.remove('open');
+
+    setInterval(updateCountdown, 1000);
+    setInterval(updateClocks, 1000);
   }
 
-  function updateTripDisplay() {
-    var fmt = function (d) {
-      return new Date(d + 'T12:00:00').toLocaleDateString('en-US', {
-        month: 'long', day: 'numeric', year: 'numeric'
-      });
+  function updateDates() {
+    var fmt = function(d) {
+      return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
     };
-    document.getElementById('tripDateDisplay').textContent =
-      fmt(tripStart) + ' \u2013 ' + fmt(tripEnd);
+    document.getElementById('dates').textContent = fmt(start) + ' — ' + fmt(end);
   }
 
-  // Settings UI
-  document.getElementById('settingsBtn').addEventListener('click', function () {
-    document.getElementById('settingsPanel').classList.toggle('open');
-  });
-  document.getElementById('saveSettings').addEventListener('click', saveSettings);
-  document.addEventListener('click', function (e) {
-    var panel = document.getElementById('settingsPanel');
-    var btn = document.getElementById('settingsBtn');
-    if (!panel.contains(e.target) && !btn.contains(e.target)) {
-      panel.classList.remove('open');
-    }
-  });
-
-  // Background
-  function setBackground() {
-    var dayOfYear = Math.floor(
-      (Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000
-    );
-    var idx = dayOfYear % PHOTOS.length;
-    var photo = PHOTOS[idx];
-    var url = 'https://images.unsplash.com/photo-' + photo.id + '?w=1920&q=80&auto=format&fit=crop';
-    var el = document.getElementById('bgImage');
-    document.getElementById('landmarkName').textContent = photo.name;
-    var img = new Image();
-    img.onload = function () {
-      el.style.backgroundImage = 'url(' + url + ')';
-      el.style.opacity = '1';
-    };
-    img.onerror = function () {
-      el.style.background = 'linear-gradient(160deg, #e8e4dc 0%, #d4cfbf 40%, #c5d5ba 100%)';
-      el.style.opacity = '1';
-    };
-    img.src = url;
-  }
-
-  // Countdown
   function updateCountdown() {
     var now = new Date();
-    var target = new Date(tripStart + 'T00:00:00');
-    var timeParts = tripTime.split(':');
-    target.setHours(parseInt(timeParts[0], 10), parseInt(timeParts[1], 10), 0, 0);
+    var target = new Date(start + 'T' + time + ':00');
     var diff = target - now;
 
     if (diff <= 0) {
-      var endDate = new Date(tripEnd + 'T23:59:59');
+      var endDate = new Date(end + 'T23:59:59');
       if (now <= endDate) {
-        document.getElementById('days').textContent = '\u2014';
-        document.getElementById('hours').textContent = 'Aloha';
-        document.getElementById('minutes').textContent = '\u2014';
-        document.getElementById('seconds').textContent = '\u2014';
-        document.getElementById('countdown').classList.add('trip-arrived');
-      } else {
-        document.getElementById('days').textContent = '0';
-        document.getElementById('hours').textContent = '00';
-        document.getElementById('minutes').textContent = '00';
-        document.getElementById('seconds').textContent = '00';
+        document.getElementById('cDays').textContent = '🌺';
+        document.getElementById('cHours').textContent = '🌺';
+        document.getElementById('cMins').textContent = '🌺';
+        document.getElementById('cSecs').textContent = '🌺';
+        document.getElementById('countdown').classList.add('arrived');
+        document.querySelector('.countdown-label span').textContent = 'Aloha! Enjoy Maui!';
       }
       return;
     }
@@ -697,102 +585,97 @@
     var m = Math.floor((diff % 3600000) / 60000);
     var s = Math.floor((diff % 60000) / 1000);
 
-    document.getElementById('days').textContent = d;
-    document.getElementById('hours').textContent = String(h).padStart(2, '0');
-    document.getElementById('minutes').textContent = String(m).padStart(2, '0');
-    document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+    document.getElementById('cDays').textContent = d;
+    document.getElementById('cHours').textContent = String(h).padStart(2, '0');
+    document.getElementById('cMins').textContent = String(m).padStart(2, '0');
+    document.getElementById('cSecs').textContent = String(s).padStart(2, '0');
   }
 
-  // Clocks
   function updateClocks() {
     var now = new Date();
-    var hOpts = { timeZone: HAWAII_TZ, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-    var hDateOpts = { timeZone: HAWAII_TZ, weekday: 'long', month: 'short', day: 'numeric' };
-    document.getElementById('hawaiiTime').textContent = now.toLocaleTimeString('en-US', hOpts);
-    document.getElementById('hawaiiDate').textContent = now.toLocaleDateString('en-US', hDateOpts);
+    var mOpts = { timeZone: TZ, hour: '2-digit', minute: '2-digit', hour12: true };
+    var mDate = { timeZone: TZ, weekday: 'short', month: 'short', day: 'numeric' };
+    document.getElementById('mauiTime').textContent = now.toLocaleTimeString('en-US', mOpts);
+    document.getElementById('mauiDate').textContent = now.toLocaleDateString('en-US', mDate);
 
-    var lOpts = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-    document.getElementById('localTime').textContent = now.toLocaleTimeString('en-US', lOpts);
+    var hOpts = { hour: '2-digit', minute: '2-digit', hour12: true };
+    document.getElementById('homeTime').textContent = now.toLocaleTimeString('en-US', hOpts);
 
-    var hawaiiOffset = getTimezoneOffset(HAWAII_TZ, now);
-    var localOffset = now.getTimezoneOffset();
-    var diffHours = (localOffset - hawaiiOffset) / 60;
-    var sign = diffHours >= 0 ? '+' : '';
-    document.getElementById('timeDiff').textContent =
-      'Maui is ' + sign + diffHours + 'h from you';
+    var utc1 = new Date(now.toLocaleString('en-US', { timeZone: 'UTC' }));
+    var utc2 = new Date(now.toLocaleString('en-US', { timeZone: TZ }));
+    var mauiOff = (utc1 - utc2) / 3600000;
+    var localOff = -now.getTimezoneOffset() / 60;
+    var diff = mauiOff - localOff;
+    document.getElementById('timeDiff').textContent = (diff >= 0 ? '+' : '') + diff + 'h from Maui';
   }
 
-  function getTimezoneOffset(tz, date) {
-    var utcStr = date.toLocaleString('en-US', { timeZone: 'UTC' });
-    var tzStr = date.toLocaleString('en-US', { timeZone: tz });
-    return (new Date(utcStr) - new Date(tzStr)) / 60000;
+  function loadPhoto() {
+    var day = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+    var p = PHOTOS[day % PHOTOS.length];
+    var url = 'https://images.unsplash.com/photo-' + p.id + '?w=1200&q=80&auto=format&fit=crop';
+    var el = document.getElementById('bgPhoto');
+    var img = new Image();
+    img.onload = function() { el.style.backgroundImage = 'url(' + url + ')'; el.style.opacity = '1'; };
+    img.onerror = function() { el.style.background = 'linear-gradient(150deg,#b8c9a3,#8ba888,#6b8f71)'; el.style.opacity = '1'; };
+    img.src = url;
+    document.getElementById('landmark').textContent = p.name;
   }
 
-  // Weather
+  function loadFact() {
+    var day = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+    document.getElementById('fact').textContent = FACTS[day % FACTS.length];
+  }
+
   function fetchWeather() {
-    var el = document.getElementById('weatherContent');
-    el.innerHTML = '<div class="weather-loading">Loading forecast\u2026</div>';
-
-    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + MAUI_LAT +
-      '&longitude=' + MAUI_LON +
-      '&daily=weather_code,temperature_2m_max,temperature_2m_min' +
-      '&temperature_unit=fahrenheit&timezone=' + HAWAII_TZ + '&forecast_days=7';
-
-    fetch(url)
-      .then(function (res) {
-        if (!res.ok) throw new Error('fail');
-        return res.json();
-      })
-      .then(function (data) { renderWeather(data.daily); })
-      .catch(function () {
-        el.innerHTML = '<div class="weather-loading">Could not load forecast</div>';
-      });
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + LAT + '&longitude=' + LON + '&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=' + TZ + '&forecast_days=7';
+    fetch(url).then(function(r) { return r.json(); }).then(function(data) {
+      var html = '<div class="weather-scroll"><div class="weather-days">';
+      for (var i = 0; i < data.daily.time.length; i++) {
+        var dt = new Date(data.daily.time[i] + 'T12:00:00');
+        var dn = dt.toLocaleDateString('en-US', { weekday: 'short' });
+        var ic = WEATHER_ICONS[data.daily.weather_code[i]] || '🌤';
+        var hi = Math.round(data.daily.temperature_2m_max[i]);
+        var lo = Math.round(data.daily.temperature_2m_min[i]);
+        html += '<div class="weather-day"><div class="d">' + dn + '</div><div class="i">' + ic + '</div><div class="t">' + hi + '°</div><div class="tl">' + lo + '°</div></div>';
+      }
+      html += '</div></div>';
+      document.getElementById('weather').innerHTML = html;
+    }).catch(function() {
+      document.getElementById('weather').innerHTML = '<div style="color:var(--text-muted);font-size:0.75rem;">Could not load weather</div>';
+    });
   }
 
-  function renderWeather(daily) {
-    var el = document.getElementById('weatherContent');
-    var days = daily.time.length;
-    var html = '<div class="weather-scroll"><div class="weather-grid">';
+  // Settings
+  document.getElementById('settingsBtn').addEventListener('click', function() {
+    document.getElementById('settingsPanel').classList.toggle('open');
+  });
 
-    for (var i = 0; i < days; i++) {
-      var date = new Date(daily.time[i] + 'T12:00:00');
-      var dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
-      var code = daily.weather_code[i];
-      var mapped = WEATHER_MAP[code] || ['\u2600\uFE0E', 'Fair'];
-      var high = Math.round(daily.temperature_2m_max[i]);
-      var low = Math.round(daily.temperature_2m_min[i]);
+  document.getElementById('saveBtn').addEventListener('click', function() {
+    var d = document.getElementById('inputDate').value;
+    var t = document.getElementById('inputTime').value;
+    var e = document.getElementById('inputEnd').value;
+    if (d) { start = d; localStorage.setItem('maui_start', d); }
+    if (t) { time = t; localStorage.setItem('maui_time', t); }
+    if (e) { end = e; localStorage.setItem('maui_end', e); }
+    updateDates();
+    updateCountdown();
+    document.getElementById('settingsPanel').classList.remove('open');
+  });
 
-      html += '<div class="weather-day">' +
-        '<div class="day-name">' + dayName + '</div>' +
-        '<div class="weather-icon">' + mapped[0] + '</div>' +
-        '<div class="temp">' + high + '\u00B0 <span class="temp-low">/ ' + low + '\u00B0</span></div>' +
-        '<div class="condition">' + mapped[1] + '</div>' +
-        '</div>';
+  document.addEventListener('click', function(e) {
+    var panel = document.getElementById('settingsPanel');
+    var btn = document.getElementById('settingsBtn');
+    if (!panel.contains(e.target) && !btn.contains(e.target)) {
+      panel.classList.remove('open');
     }
+  });
 
-    html += '</div></div>';
-    html += '<div class="weather-note">7-day forecast \u00B7 Maui, HI</div>';
-    el.innerHTML = html;
+  // Dark mode theme color
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#141414');
   }
 
-  // Update dark mode theme-color dynamically
-  function updateThemeColor() {
-    var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      meta.setAttribute('content', '#1a1c1a');
-    }
-  }
-
-  // Init
-  loadSettings();
-  setBackground();
-  updateCountdown();
-  updateClocks();
-  fetchWeather();
-  updateThemeColor();
-
-  setInterval(updateCountdown, 1000);
-  setInterval(updateClocks, 1000);
+  init();
 })();
 </script>
 </body>
