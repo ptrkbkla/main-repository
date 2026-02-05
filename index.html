@@ -90,7 +90,13 @@ body {
 /* ===== Header ===== */
 .header {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 24px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 24px 28px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
 .header h1 {
@@ -100,14 +106,14 @@ body {
   letter-spacing: 0.02em;
   color: var(--text);
   line-height: 1;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .header .dates {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 400;
-  color: var(--text-soft);
+  color: var(--text);
   letter-spacing: 0.03em;
 }
 
@@ -422,6 +428,7 @@ body {
     --text-soft: #b0b0b0;
     --text-muted: #707070;
   }
+  .header { background: rgba(32,32,32,0.75); }
   .bg::after {
     background: linear-gradient(to bottom,
       rgba(20,20,20,0.2) 0%, rgba(20,20,20,0.1) 20%,
@@ -525,16 +532,16 @@ body {
   var LAT = 20.7984, LON = -156.3319;
 
   var PHOTOS = [
-    { id: '1542259009477-d625272157b7', name: 'Road to Hana' },
-    { id: '1559828892-20b41ddbbfaa', name: 'Haleakalā Crater' },
-    { id: '1505852679233-d9fd70aff56d', name: 'West Maui Mountains' },
-    { id: '1469854523086-cc02fe5d8800', name: 'Kaʻanapali Beach' },
-    { id: '1544551763-46a013bb70d5', name: 'Maui Coastline' },
-    { id: '1507525428034-b723cf961d3e', name: 'Wailea Beach' },
-    { id: '1514395462725-fb4566210144', name: 'Molokini Crater' },
-    { id: '1518509562904-e7ef99cdcc86', name: 'Napili Bay' },
-    { id: '1559494007-9f5847c49d94', name: 'Hoʻokipa Beach' },
-    { id: '1523978591478-c753949ff840', name: 'ʻĪao Valley' }
+    { id: '1507525428034-b723cf961d3e', name: 'Maui Beach' },
+    { id: '1509233725247-49e657c54213', name: 'Kaʻanapali Beach' },
+    { id: '1471922694854-ff1b63b20054', name: 'Maui Shoreline' },
+    { id: '1506953823645-5e21091c4a68', name: 'Wailea Beach' },
+    { id: '1505228395891-9a51e7e86bf6', name: 'Maui Sunset Beach' },
+    { id: '1519046904884-53103b34b206', name: 'Napili Bay' },
+    { id: '1473116763249-2faaef81ccda', name: 'Maui Paradise' },
+    { id: '1510414842594-a61c69b5ae57', name: 'Maui Waves' },
+    { id: '1507537297725-24a1c029d3ca', name: 'Maui Coast' },
+    { id: '1504681869696-d977211a5f4c', name: 'Maui Palms' }
   ];
 
   var FACTS = [
@@ -637,12 +644,18 @@ body {
     var hOpts = {hour:'2-digit',minute:'2-digit',hour12:true};
     document.getElementById('homeTime').textContent = now.toLocaleTimeString('en-US',hOpts);
 
-    var utc1 = new Date(now.toLocaleString('en-US',{timeZone:'UTC'}));
-    var utc2 = new Date(now.toLocaleString('en-US',{timeZone:TZ}));
-    var mauiOff = (utc1-utc2)/3600000;
-    var localOff = -now.getTimezoneOffset()/60;
-    var diff = mauiOff - localOff;
-    document.getElementById('timeDiff').textContent = (diff>=0?'+':'') + diff + 'h from Maui';
+    // Calculate time difference: positive = you're ahead of Maui
+    var mauiTime = new Date(now.toLocaleString('en-US',{timeZone:TZ}));
+    var localTime = new Date(now.toLocaleString('en-US'));
+    var diffHours = Math.round((localTime - mauiTime) / 3600000);
+
+    if (diffHours === 0) {
+      document.getElementById('timeDiff').textContent = 'Same as Maui';
+    } else if (diffHours > 0) {
+      document.getElementById('timeDiff').textContent = diffHours + 'h ahead of Maui';
+    } else {
+      document.getElementById('timeDiff').textContent = Math.abs(diffHours) + 'h behind Maui';
+    }
   }
 
   function loadPhoto() {
