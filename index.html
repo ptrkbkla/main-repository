@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hawaii</title>
+<title>Maui</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
@@ -259,14 +259,16 @@
     color: var(--sage);
   }
 
-  /* Photo credit */
+  /* Landmark caption */
   .photo-credit {
     text-align: center;
-    font-size: 0.6rem;
-    color: var(--text-light);
-    opacity: 0.5;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--sage);
     padding-top: 1.5rem;
     margin-top: auto;
+    opacity: 0.7;
   }
 
   /* Settings */
@@ -385,7 +387,7 @@
 
 <div class="container">
   <header>
-    <h1>Hawaii</h1>
+    <h1>Maui</h1>
     <div class="tulip-divider">
       <div class="line"></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" color="#7a8c6e">
@@ -435,11 +437,11 @@
   </div>
 
   <div class="card">
-    <div class="card-label">Honolulu Forecast</div>
+    <div class="card-label">Maui Forecast</div>
     <div id="weatherContent" class="weather-loading">Loading forecast&hellip;</div>
   </div>
 
-  <div class="photo-credit">Photo via Unsplash</div>
+  <div class="photo-credit"><span id="landmarkName"></span></div>
 </div>
 
 <script>
@@ -448,21 +450,21 @@
   const DEFAULT_TRIP_END = '2026-04-02';
   const DEPARTURE_HOUR = 17; // 5:00 PM
   const HAWAII_TZ = 'Pacific/Honolulu';
-  const HONOLULU_LAT = 21.3069;
-  const HONOLULU_LON = -157.8583;
+  const MAUI_LAT = 20.7984;
+  const MAUI_LON = -156.3319;
 
-  // Curated Hawaii photos from Unsplash (direct image IDs)
+  // Iconic Maui landmarks — Unsplash photo IDs + captions
   const PHOTOS = [
-    '1507525428034-b723cf961d3e', // clean beach
-    '1559494007-9f5847c49d94', // tropical water
-    '1505852679233-d9fd70aff56d', // green coastline
-    '1542259009477-d625272157b7', // sunset palms
-    '1514395462725-fb4566210144', // aerial reef
-    '1544551763-46a013bb70d5', // volcanic coast
-    '1518509562904-e7ef99cdcc86', // clear water
-    '1469854523086-cc02fe5d8800', // paradise beach
-    '1507699622108-4be3abd695ad', // ocean aerial
-    '1523978591478-c753949ff840', // tropical green
+    { id: '1542259009477-d625272157b7', name: 'Road to Hana' },
+    { id: '1559828892-20b41ddbbfaa', name: 'Haleakala Crater' },
+    { id: '1505852679233-d9fd70aff56d', name: 'West Maui Mountains' },
+    { id: '1469854523086-cc02fe5d8800', name: "Ka'anapali Beach" },
+    { id: '1544551763-46a013bb70d5', name: 'Maui Coastline' },
+    { id: '1507525428034-b723cf961d3e', name: 'Wailea Beach' },
+    { id: '1514395462725-fb4566210144', name: 'Molokini Crater' },
+    { id: '1518509562904-e7ef99cdcc86', name: 'Napili Bay' },
+    { id: '1559494007-9f5847c49d94', name: "Ho'okipa Beach" },
+    { id: '1523978591478-c753949ff840', name: "'Iao Valley" },
   ];
 
   const WEATHER_MAP = {
@@ -531,9 +533,11 @@
       (Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000
     );
     const idx = dayOfYear % PHOTOS.length;
-    const id = PHOTOS[idx];
-    const url = 'https://images.unsplash.com/photo-' + id + '?w=1920&q=80&auto=format&fit=crop';
+    const photo = PHOTOS[idx];
+    const url = 'https://images.unsplash.com/photo-' + photo.id + '?w=1920&q=80&auto=format&fit=crop';
     const el = document.getElementById('bgImage');
+    const caption = document.getElementById('landmarkName');
+    caption.textContent = photo.name;
     const img = new Image();
     img.onload = function () {
       el.style.backgroundImage = 'url(' + url + ')';
@@ -612,8 +616,8 @@
     var el = document.getElementById('weatherContent');
     el.innerHTML = '<div class="weather-loading">Loading forecast\u2026</div>';
 
-    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + HONOLULU_LAT +
-      '&longitude=' + HONOLULU_LON +
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + MAUI_LAT +
+      '&longitude=' + MAUI_LON +
       '&daily=weather_code,temperature_2m_max,temperature_2m_min' +
       '&temperature_unit=fahrenheit&timezone=' + HAWAII_TZ + '&forecast_days=7';
 
@@ -652,7 +656,7 @@
     }
 
     html += '</div>';
-    html += '<div class="weather-note">7-day forecast for Honolulu, HI</div>';
+    html += '<div class="weather-note">7-day forecast for Maui, HI</div>';
     el.innerHTML = html;
   }
 
