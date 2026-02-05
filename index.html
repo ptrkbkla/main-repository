@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hawaii Countdown</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌺</text></svg>">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-shadow: rgba(0, 0, 0, 0.25);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.75);
+    --accent: #f0c27f;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    background: #1a1a2e;
+  }
+
+  .bg-image {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 1.2s ease;
+  }
+
+  .bg-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.15) 40%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  header {
+    text-align: center;
+    padding-bottom: 0.5rem;
+  }
+
+  header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  header p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+    font-weight: 300;
+  }
+
+  .card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 8px 32px var(--glass-shadow);
+  }
+
+  .card-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  /* Countdown */
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .countdown-unit .value {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .countdown-unit .label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.35rem;
+  }
+
+  /* Clocks row */
+  .clocks-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .clock-time {
+    font-size: 1.75rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+
+  .clock-detail {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+  }
+
+  /* Weather */
+  .weather-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .weather-day {
+    text-align: center;
+    padding: 1rem 0.5rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .weather-day .day-name {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+  }
+
+  .weather-day .weather-icon {
+    font-size: 1.6rem;
+    margin: 0.5rem 0;
+    line-height: 1;
+  }
+
+  .weather-day .temp {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .weather-day .temp-low {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .weather-day .condition {
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+  }
+
+  .weather-note {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 0.75rem;
+    font-style: italic;
+  }
+
+  .weather-loading {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 1.5rem;
+    font-size: 0.85rem;
+  }
+
+  /* Trip arrived state */
+  .trip-arrived .value {
+    color: var(--accent);
+  }
+
+  /* Photo credit */
+  .photo-credit {
+    text-align: center;
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.35);
+    padding-top: 1rem;
+    margin-top: auto;
+  }
+
+  .photo-credit a {
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+  }
+
+  /* Settings button */
+  .settings-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    transition: background 0.2s;
+  }
+  .settings-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .settings-panel {
+    display: none;
+    position: fixed;
+    top: 3.5rem;
+    right: 1rem;
+    z-index: 10;
+    width: 280px;
+  }
+
+  .settings-panel.open { display: block; }
+
+  .settings-panel label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.35rem;
+  }
+
+  .settings-panel input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    outline: none;
+  }
+
+  .settings-panel input:focus {
+    border-color: var(--accent);
+  }
+
+  .settings-panel button {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent);
+    color: #1a1a2e;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .settings-panel button:hover { opacity: 0.85; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .container { padding: 2rem 1rem; gap: 1rem; }
+    header h1 { font-size: 1.6rem; }
+    .countdown-unit .value { font-size: 2.2rem; }
+    .clocks-row { grid-template-columns: 1fr; }
+    .clock-time { font-size: 1.5rem; }
+    .card { padding: 1.25rem; }
+    .weather-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); }
+    .settings-panel { width: calc(100vw - 2rem); right: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-image" id="bgImage"></div>
+
+<button class="settings-toggle" id="settingsBtn" aria-label="Settings">&#9881;</button>
+<div class="settings-panel card" id="settingsPanel">
+  <label for="tripDateInput">Trip start date</label>
+  <input type="date" id="tripDateInput">
+  <label for="tripEndInput">Trip end date</label>
+  <input type="date" id="tripEndInput">
+  <button id="saveSettings">Save</button>
+</div>
+
+<div class="container">
+  <header>
+    <h1>Hawaii</h1>
+    <p id="tripDateDisplay"></p>
+  </header>
+
+  <div class="card">
+    <div class="card-label">Countdown</div>
+    <div class="countdown-grid" id="countdown">
+      <div class="countdown-unit">
+        <div class="value" id="days">--</div>
+        <div class="label">Days</div>
+      </div>
+      <div class="countdown-unit">
+        <div class="value" id="hours">--</div>
+        <div class="label">Hours</div>
+      </div>
+      <div class="countdown-unit">
+        <div class="value" id="minutes">--</div>
+        <div class="label">Minutes</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="clocks-row">
+    <div class="card">
+      <div class="card-label">Hawaii Time</div>
+      <div class="clock-time" id="hawaiiTime">--:--:--</div>
+      <div class="clock-detail" id="hawaiiDate"></div>
+    </div>
+    <div class="card">
+      <div class="card-label">Your Time</div>
+      <div class="clock-time" id="localTime">--:--:--</div>
+      <div class="clock-detail" id="timeDiff"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Honolulu Forecast</div>
+    <div id="weatherContent" class="weather-loading">Loading forecast&hellip;</div>
+  </div>
+
+  <div class="photo-credit" id="photoCredit">Photo via Unsplash</div>
+</div>
+
+<script>
+(function () {
+  // --- Config ---
+  const DEFAULT_TRIP_START = '2026-03-15';
+  const DEFAULT_TRIP_END = '2026-03-22';
+  const HAWAII_TZ = 'Pacific/Honolulu';
+  const HONOLULU_LAT = 21.3069;
+  const HONOLULU_LON = -157.8583;
+
+  // Hawaii Unsplash photo IDs (high-quality landscape shots)
+  const PHOTO_IDS = [
+    'pRtVi-XRawg', // Na Pali coast
+    'hh-7dHDqsPo', // aerial beach
+    'F4kpiiM47gM', // sunset
+    'cOJgO4Ek234', // palm trees
+    '3P_0Ltm-Weg', // ocean waves
+    'xdpnH0JWpZQ', // tropical green
+    'PxRmb1GYgVU', // shoreline
+    'Ai2TRdvI6gM', // ocean view
+    'SuE7aAVsE30', // volcanic landscape
+    'Q_MrMREB-Yo', // beach sunrise
+  ];
+
+  // Weather code to icon/label mapping (WMO codes)
+  const WEATHER_MAP = {
+    0: ['☀️', 'Clear'],
+    1: ['🌤', 'Mostly clear'],
+    2: ['⛅', 'Partly cloudy'],
+    3: ['☁️', 'Overcast'],
+    45: ['🌫', 'Fog'],
+    48: ['🌫', 'Fog'],
+    51: ['🌦', 'Light drizzle'],
+    53: ['🌦', 'Drizzle'],
+    55: ['🌧', 'Heavy drizzle'],
+    61: ['🌧', 'Light rain'],
+    63: ['🌧', 'Rain'],
+    65: ['🌧', 'Heavy rain'],
+    80: ['🌦', 'Showers'],
+    81: ['🌧', 'Showers'],
+    82: ['🌧', 'Heavy showers'],
+    95: ['⛈', 'Thunderstorm'],
+  };
+
+  // --- State ---
+  let tripStart, tripEnd;
+
+  function loadSettings() {
+    tripStart = localStorage.getItem('hw_tripStart') || DEFAULT_TRIP_START;
+    tripEnd = localStorage.getItem('hw_tripEnd') || DEFAULT_TRIP_END;
+    document.getElementById('tripDateInput').value = tripStart;
+    document.getElementById('tripEndInput').value = tripEnd;
+    updateTripDisplay();
+  }
+
+  function saveSettings() {
+    const s = document.getElementById('tripDateInput').value;
+    const e = document.getElementById('tripEndInput').value;
+    if (s) { tripStart = s; localStorage.setItem('hw_tripStart', s); }
+    if (e) { tripEnd = e; localStorage.setItem('hw_tripEnd', e); }
+    updateTripDisplay();
+    fetchWeather();
+    document.getElementById('settingsPanel').classList.remove('open');
+  }
+
+  function updateTripDisplay() {
+    const fmt = (d) => new Date(d + 'T00:00:00').toLocaleDateString('en-US', {
+      month: 'long', day: 'numeric', year: 'numeric'
+    });
+    document.getElementById('tripDateDisplay').textContent =
+      fmt(tripStart) + ' – ' + fmt(tripEnd);
+  }
+
+  // --- Settings UI ---
+  document.getElementById('settingsBtn').addEventListener('click', () => {
+    document.getElementById('settingsPanel').classList.toggle('open');
+  });
+  document.getElementById('saveSettings').addEventListener('click', saveSettings);
+  document.addEventListener('click', (e) => {
+    const panel = document.getElementById('settingsPanel');
+    const btn = document.getElementById('settingsBtn');
+    if (!panel.contains(e.target) && !btn.contains(e.target)) {
+      panel.classList.remove('open');
+    }
+  });
+
+  // --- Background ---
+  function setBackground() {
+    const dayOfYear = Math.floor(
+      (Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000
+    );
+    const idx = dayOfYear % PHOTO_IDS.length;
+    const id = PHOTO_IDS[idx];
+    const url = `https://images.unsplash.com/photo-${id}?w=1920&q=80&auto=format&fit=crop`;
+    const el = document.getElementById('bgImage');
+    const img = new Image();
+    img.onload = () => {
+      el.style.backgroundImage = `url(${url})`;
+      el.style.opacity = '1';
+    };
+    img.onerror = () => {
+      // Fallback gradient
+      el.style.background = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)';
+      el.style.opacity = '1';
+    };
+    img.src = url;
+  }
+
+  // --- Countdown ---
+  function updateCountdown() {
+    const now = new Date();
+    const target = new Date(tripStart + 'T00:00:00');
+    const diff = target - now;
+
+    if (diff <= 0) {
+      const endDate = new Date(tripEnd + 'T23:59:59');
+      if (now <= endDate) {
+        document.getElementById('days').textContent = '🌺';
+        document.getElementById('hours').textContent = 'Aloha!';
+        document.getElementById('minutes').textContent = '🌺';
+        document.getElementById('countdown').classList.add('trip-arrived');
+      } else {
+        document.getElementById('days').textContent = '0';
+        document.getElementById('hours').textContent = '0';
+        document.getElementById('minutes').textContent = '0';
+      }
+      return;
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+
+    document.getElementById('days').textContent = d;
+    document.getElementById('hours').textContent = String(h).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+  }
+
+  // --- Clocks ---
+  function updateClocks() {
+    const now = new Date();
+
+    const hawaiiOpts = { timeZone: HAWAII_TZ, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    const hawaiiDateOpts = { timeZone: HAWAII_TZ, weekday: 'short', month: 'short', day: 'numeric' };
+    document.getElementById('hawaiiTime').textContent = now.toLocaleTimeString('en-US', hawaiiOpts);
+    document.getElementById('hawaiiDate').textContent = now.toLocaleDateString('en-US', hawaiiDateOpts);
+
+    const localOpts = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+    document.getElementById('localTime').textContent = now.toLocaleTimeString('en-US', localOpts);
+
+    // Compute offset difference
+    const hawaiiOffset = getTimezoneOffset(HAWAII_TZ, now);
+    const localOffset = now.getTimezoneOffset();
+    const diffHours = (localOffset - hawaiiOffset) / 60;
+    const sign = diffHours >= 0 ? '+' : '';
+    document.getElementById('timeDiff').textContent =
+      `Hawaii is ${sign}${diffHours}h from you`;
+  }
+
+  function getTimezoneOffset(tz, date) {
+    const utcStr = date.toLocaleString('en-US', { timeZone: 'UTC' });
+    const tzStr = date.toLocaleString('en-US', { timeZone: tz });
+    return (new Date(utcStr) - new Date(tzStr)) / 60000;
+  }
+
+  // --- Weather ---
+  async function fetchWeather() {
+    const el = document.getElementById('weatherContent');
+    el.innerHTML = '<div class="weather-loading">Loading forecast&hellip;</div>';
+
+    try {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${HONOLULU_LAT}&longitude=${HONOLULU_LON}&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=${HAWAII_TZ}&forecast_days=7`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Weather API error');
+      const data = await res.json();
+      renderWeather(data.daily);
+    } catch (err) {
+      el.innerHTML = '<div class="weather-loading">Could not load forecast</div>';
+    }
+  }
+
+  function renderWeather(daily) {
+    const el = document.getElementById('weatherContent');
+    const days = daily.time.length;
+    let html = '<div class="weather-grid">';
+
+    for (let i = 0; i < days; i++) {
+      const date = new Date(daily.time[i] + 'T12:00:00');
+      const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+      const code = daily.weather_code[i];
+      const [icon, condition] = WEATHER_MAP[code] || ['🌤', 'Fair'];
+      const high = Math.round(daily.temperature_2m_max[i]);
+      const low = Math.round(daily.temperature_2m_min[i]);
+
+      html += `
+        <div class="weather-day">
+          <div class="day-name">${dayName}</div>
+          <div class="weather-icon">${icon}</div>
+          <div class="temp">${high}°<span class="temp-low"> / ${low}°</span></div>
+          <div class="condition">${condition}</div>
+        </div>`;
+    }
+
+    html += '</div>';
+    html += '<div class="weather-note">7-day forecast for Honolulu, HI</div>';
+    el.innerHTML = html;
+  }
+
+  // --- Init ---
+  loadSettings();
+  setBackground();
+  updateCountdown();
+  updateClocks();
+  fetchWeather();
+
+  setInterval(updateCountdown, 10000);
+  setInterval(updateClocks, 1000);
+})();
+</script>
+</body>
+</html>
