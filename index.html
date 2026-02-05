@@ -334,84 +334,6 @@ body {
   letter-spacing: 0.02em;
 }
 
-/* ===== Settings ===== */
-.settings-btn {
-  position: fixed;
-  top: calc(12px + var(--safe-t));
-  right: calc(12px + var(--safe-r));
-  z-index: 100;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: none;
-  background: var(--card);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: var(--shadow);
-  color: var(--text-soft);
-  font-size: 1.1rem;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 0.2s, background 0.2s;
-}
-.settings-btn:active { transform: scale(0.92); background: var(--card-solid); }
-
-.settings-panel {
-  display: none;
-  position: fixed;
-  top: calc(64px + var(--safe-t));
-  right: calc(12px + var(--safe-r));
-  z-index: 100;
-  width: calc(100% - 24px - var(--safe-l) - var(--safe-r));
-  max-width: 300px;
-  background: var(--card-solid);
-  border-radius: var(--radius-sm);
-  padding: 20px;
-  box-shadow: var(--shadow-lg);
-}
-.settings-panel.open { display: block; }
-
-.settings-panel label {
-  display: block;
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-}
-
-.settings-panel input {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid rgba(0,0,0,0.08);
-  background: var(--bg);
-  color: var(--text);
-  font-family: inherit;
-  font-size: 16px;
-  margin-bottom: 16px;
-  -webkit-appearance: none;
-  transition: border-color 0.2s;
-}
-.settings-panel input:focus { outline: none; border-color: var(--sage); }
-
-.settings-panel button {
-  width: 100%;
-  padding: 14px;
-  border-radius: 10px;
-  border: none;
-  background: var(--sage);
-  color: #fff;
-  font-family: inherit;
-  font-weight: 600;
-  font-size: 0.85rem;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: background 0.2s, transform 0.15s;
-}
-.settings-panel button:active { transform: scale(0.98); background: var(--sage-deep); }
-
 /* ===== States ===== */
 .arrived .num { color: var(--sage); }
 
@@ -435,7 +357,6 @@ body {
       rgba(20,20,20,0.4) 45%, rgba(20,20,20,0.92) 70%, rgba(20,20,20,1) 100%);
   }
   .weather-day { background: rgba(143,184,149,0.08); }
-  .settings-panel input { background: #252525; border-color: rgba(255,255,255,0.08); }
 }
 
 /* ===== PWA Standalone ===== */
@@ -461,17 +382,6 @@ body {
 <body>
 
 <div class="bg"><div class="bg-photo" id="bgPhoto"></div></div>
-
-<button class="settings-btn" id="settingsBtn" aria-label="Settings">&#9881;</button>
-<div class="settings-panel" id="settingsPanel">
-  <label>Departure Date</label>
-  <input type="date" id="inputDate">
-  <label>Departure Time</label>
-  <input type="time" id="inputTime">
-  <label>Return Date</label>
-  <input type="date" id="inputEnd">
-  <button id="saveBtn">Save</button>
-</div>
 
 <div class="app">
   <header class="header">
@@ -573,17 +483,9 @@ body {
     80:'🌦',81:'🌧',82:'🌧',95:'⛈'
   };
 
-  var start, end, time, currentFactIndex;
+  var currentFactIndex;
 
   function init() {
-    start = localStorage.getItem('maui_start') || TRIP_START;
-    end = localStorage.getItem('maui_end') || TRIP_END;
-    time = localStorage.getItem('maui_time') || TRIP_TIME;
-
-    document.getElementById('inputDate').value = start;
-    document.getElementById('inputTime').value = time;
-    document.getElementById('inputEnd').value = end;
-
     var day = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
     currentFactIndex = day % FACTS.length;
 
@@ -602,16 +504,16 @@ body {
     var fmt = function(d) {
       return new Date(d+'T12:00:00').toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
     };
-    document.getElementById('dates').textContent = fmt(start) + ' — ' + fmt(end);
+    document.getElementById('dates').textContent = fmt(TRIP_START) + ' — ' + fmt(TRIP_END);
   }
 
   function updateCountdown() {
     var now = new Date();
-    var target = new Date(start+'T'+time+':00');
+    var target = new Date(TRIP_START+'T'+TRIP_TIME+':00');
     var diff = target - now;
 
     if (diff <= 0) {
-      var endDate = new Date(end+'T23:59:59');
+      var endDate = new Date(TRIP_END+'T23:59:59');
       if (now <= endDate) {
         document.getElementById('cDays').textContent = '🌺';
         document.getElementById('cHours').textContent = '🌺';
@@ -700,31 +602,6 @@ body {
       document.getElementById('weather').innerHTML = '<div style="color:var(--text-muted);font-size:0.75rem;">Could not load weather</div>';
     });
   }
-
-  // Settings
-  document.getElementById('settingsBtn').addEventListener('click',function(){
-    document.getElementById('settingsPanel').classList.toggle('open');
-  });
-
-  document.getElementById('saveBtn').addEventListener('click',function(){
-    var d = document.getElementById('inputDate').value;
-    var t = document.getElementById('inputTime').value;
-    var e = document.getElementById('inputEnd').value;
-    if(d){start=d;localStorage.setItem('maui_start',d);}
-    if(t){time=t;localStorage.setItem('maui_time',t);}
-    if(e){end=e;localStorage.setItem('maui_end',e);}
-    updateDates();
-    updateCountdown();
-    document.getElementById('settingsPanel').classList.remove('open');
-  });
-
-  document.addEventListener('click',function(e){
-    var panel = document.getElementById('settingsPanel');
-    var btn = document.getElementById('settingsBtn');
-    if(!panel.contains(e.target) && !btn.contains(e.target)){
-      panel.classList.remove('open');
-    }
-  });
 
   // Refresh fact button
   document.getElementById('refreshFact').addEventListener('click', nextFact);
