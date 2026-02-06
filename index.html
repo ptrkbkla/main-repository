@@ -334,6 +334,212 @@ body {
   letter-spacing: 0.02em;
 }
 
+/* ===== Flight Card (Air Canada Style) ===== */
+.flight-card {
+  background: var(--card-solid);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.flight-header {
+  background: linear-gradient(135deg, #e31837 0%, #c41230 100%);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flight-header .airline {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+}
+
+.flight-header .flight-num {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.flight-body {
+  padding: 16px;
+}
+
+.flight-route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.flight-airport {
+  text-align: center;
+  flex: 0 0 70px;
+}
+
+.flight-airport .code {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+
+.flight-airport .city {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.flight-airport .time {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 6px;
+}
+
+.flight-airport .tz {
+  font-size: 0.55rem;
+  color: var(--text-muted);
+}
+
+.flight-path {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.flight-path-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, var(--text-muted) 0%, var(--text-muted) 45%, transparent 45%, transparent 55%, var(--text-muted) 55%, var(--text-muted) 100%);
+  position: relative;
+}
+
+.flight-path-plane {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  color: #e31837;
+}
+
+.flight-details {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  margin-bottom: 12px;
+}
+
+.flight-detail {
+  text-align: center;
+}
+
+.flight-detail .label {
+  font-size: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.flight-detail .value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.flight-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+.flight-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.flight-status-badge.scheduled {
+  background: rgba(107,143,113,0.12);
+  color: var(--sage-deep);
+}
+
+.flight-status-badge.on-time {
+  background: rgba(34,139,34,0.12);
+  color: #228b22;
+}
+
+.flight-status-badge.delayed {
+  background: rgba(227,24,55,0.12);
+  color: #e31837;
+}
+
+.flight-status-badge.landed {
+  background: rgba(34,139,34,0.15);
+  color: #228b22;
+}
+
+.flight-update-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(227,24,55,0.3);
+  background: rgba(227,24,55,0.05);
+  color: #e31837;
+  font-family: inherit;
+  font-size: 0.65rem;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.2s;
+}
+
+.flight-update-btn:active {
+  transform: scale(0.96);
+  background: rgba(227,24,55,0.1);
+}
+
+.flight-update-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.flight-update-btn svg {
+  width: 12px;
+  height: 12px;
+}
+
+.flight-update-btn.loading svg {
+  animation: spin 1s linear infinite;
+}
+
+.flight-last-updated {
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  text-align: right;
+  margin-top: 8px;
+}
+
 /* ===== Login Screen ===== */
 .login-screen {
   position: fixed;
@@ -530,6 +736,61 @@ body {
     <div class="countdown-label"><span>until takeoff</span></div>
   </div>
 
+  <div class="flight-card" id="flightCard">
+    <div class="flight-header">
+      <span class="airline">Air Canada</span>
+      <span class="flight-num">AC 537</span>
+    </div>
+    <div class="flight-body">
+      <div class="flight-route">
+        <div class="flight-airport">
+          <div class="code">YVR</div>
+          <div class="city">Vancouver</div>
+          <div class="time" id="flightDepTime">5:40 PM</div>
+          <div class="tz">PST</div>
+        </div>
+        <div class="flight-path">
+          <div class="flight-path-line">
+            <span class="flight-path-plane">✈</span>
+          </div>
+        </div>
+        <div class="flight-airport">
+          <div class="code">OGG</div>
+          <div class="city">Kahului</div>
+          <div class="time" id="flightArrTime">10:08 PM</div>
+          <div class="tz">HST</div>
+        </div>
+      </div>
+      <div class="flight-details">
+        <div class="flight-detail">
+          <div class="label">Date</div>
+          <div class="value" id="flightDate">Mar 26, 2026</div>
+        </div>
+        <div class="flight-detail">
+          <div class="label">Duration</div>
+          <div class="value">6h 28m</div>
+        </div>
+        <div class="flight-detail">
+          <div class="label">Aircraft</div>
+          <div class="value">737 MAX 8</div>
+        </div>
+      </div>
+      <div class="flight-status">
+        <div class="flight-status-badge scheduled" id="flightStatusBadge">
+          <span>Scheduled</span>
+        </div>
+        <button class="flight-update-btn" id="flightUpdateBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
+            <path d="M21 3v5h-5"/>
+          </svg>
+          Update Status
+        </button>
+      </div>
+      <div class="flight-last-updated" id="flightLastUpdated"></div>
+    </div>
+  </div>
+
   <div class="time-row">
     <div class="time-card">
       <div class="label">Maui</div>
@@ -619,6 +880,11 @@ body {
   var TZ = 'Pacific/Honolulu';
   var LAT = 20.7984, LON = -156.3319;
 
+  // === Flight Configuration ===
+  var FLIGHT_IATA = 'AC537';
+  var FLIGHT_API_KEY = 'cb77caa61e47be30ff1e6002dc3fff44';
+  var FLIGHT_CACHE_KEY = 'maui_flight_data';
+
   var PHOTOS = [
     { id: '1507525428034-b723cf961d3e', name: 'Maui Beach' },
     { id: '1509233725247-49e657c54213', name: 'Kaʻanapali Beach' },
@@ -679,6 +945,9 @@ body {
 
     // Refresh fact button
     document.getElementById('refreshFact').addEventListener('click', nextFact);
+
+    // Initialize flight tracking
+    initFlight();
   }
 
   function updateDates() {
@@ -782,6 +1051,145 @@ body {
     }).catch(function(){
       document.getElementById('weather').innerHTML = '<div style="color:var(--text-muted);font-size:0.75rem;">Could not load weather</div>';
     });
+  }
+
+  // === Flight Tracking ===
+  function initFlight() {
+    // Load cached flight data if available
+    var cached = localStorage.getItem(FLIGHT_CACHE_KEY);
+    if (cached) {
+      try {
+        var data = JSON.parse(cached);
+        if (data.timestamp) {
+          updateFlightDisplay(data);
+        }
+      } catch(e) {}
+    }
+
+    // Attach update button handler
+    document.getElementById('flightUpdateBtn').addEventListener('click', fetchFlightStatus);
+  }
+
+  function fetchFlightStatus() {
+    var btn = document.getElementById('flightUpdateBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    // AviationStack API (note: free tier is HTTP only)
+    var url = 'https://api.aviationstack.com/v1/flights?access_key=' + FLIGHT_API_KEY + '&flight_iata=' + FLIGHT_IATA;
+
+    fetch(url)
+      .then(function(r) { return r.json(); })
+      .then(function(response) {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+
+        if (response.error) {
+          showFlightError(response.error.message || 'API error');
+          return;
+        }
+
+        if (response.data && response.data.length > 0) {
+          var flight = response.data[0];
+          var flightData = {
+            timestamp: Date.now(),
+            status: flight.flight_status || 'scheduled',
+            depTime: flight.departure.scheduled || null,
+            arrTime: flight.arrival.scheduled || null,
+            depActual: flight.departure.actual || null,
+            arrActual: flight.arrival.actual || null,
+            depDelay: flight.departure.delay || 0,
+            arrDelay: flight.arrival.delay || 0,
+            depGate: flight.departure.gate || null,
+            arrGate: flight.arrival.gate || null
+          };
+
+          localStorage.setItem(FLIGHT_CACHE_KEY, JSON.stringify(flightData));
+          updateFlightDisplay(flightData);
+        } else {
+          showFlightError('No flight data available yet');
+        }
+      })
+      .catch(function(err) {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+        showFlightError('Could not fetch flight data');
+      });
+  }
+
+  function updateFlightDisplay(data) {
+    var badge = document.getElementById('flightStatusBadge');
+    var lastUpdated = document.getElementById('flightLastUpdated');
+
+    // Update status badge
+    badge.className = 'flight-status-badge';
+    var statusText = 'Scheduled';
+
+    switch(data.status) {
+      case 'scheduled':
+        badge.classList.add('scheduled');
+        statusText = 'Scheduled';
+        break;
+      case 'active':
+        badge.classList.add('on-time');
+        statusText = 'In Flight';
+        break;
+      case 'landed':
+        badge.classList.add('landed');
+        statusText = 'Landed';
+        break;
+      case 'cancelled':
+        badge.classList.add('delayed');
+        statusText = 'Cancelled';
+        break;
+      case 'diverted':
+        badge.classList.add('delayed');
+        statusText = 'Diverted';
+        break;
+      default:
+        if (data.depDelay > 0) {
+          badge.classList.add('delayed');
+          statusText = 'Delayed ' + data.depDelay + 'min';
+        } else {
+          badge.classList.add('on-time');
+          statusText = 'On Time';
+        }
+    }
+
+    badge.innerHTML = '<span>' + statusText + '</span>';
+
+    // Update times if we have actual data
+    if (data.depActual) {
+      var depTime = new Date(data.depActual);
+      document.getElementById('flightDepTime').textContent = depTime.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true});
+    }
+    if (data.arrActual) {
+      var arrTime = new Date(data.arrActual);
+      document.getElementById('flightArrTime').textContent = arrTime.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true});
+    }
+
+    // Show last updated time
+    if (data.timestamp) {
+      var updated = new Date(data.timestamp);
+      lastUpdated.textContent = 'Last updated: ' + updated.toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true});
+    }
+  }
+
+  function showFlightError(msg) {
+    var lastUpdated = document.getElementById('flightLastUpdated');
+    lastUpdated.textContent = msg;
+    setTimeout(function() {
+      var cached = localStorage.getItem(FLIGHT_CACHE_KEY);
+      if (cached) {
+        var data = JSON.parse(cached);
+        if (data.timestamp) {
+          var updated = new Date(data.timestamp);
+          lastUpdated.textContent = 'Last updated: ' + updated.toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true});
+        }
+      } else {
+        lastUpdated.textContent = '';
+      }
+    }, 3000);
   }
 
   // Dark mode theme color
