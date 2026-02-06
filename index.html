@@ -123,22 +123,36 @@ body {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: var(--radius);
-  padding: 28px 20px;
+  padding: 16px 16px 20px;
   box-shadow: var(--shadow);
-  margin-bottom: 14px;
+  margin-bottom: 10px;
+}
+
+.countdown-label {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.countdown-label span {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
 }
 
 .countdown-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
+  gap: 2px;
 }
 
 .countdown-item { text-align: center; }
 
 .countdown-item .num {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 3.4rem;
+  font-size: 3rem;
   font-weight: 300;
   line-height: 1;
   color: var(--text);
@@ -146,36 +160,20 @@ body {
 }
 
 .countdown-item .unit {
-  font-size: 0.6rem;
+  font-size: 0.55rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   color: var(--sage);
-  margin-top: 8px;
-}
-
-.countdown-label {
-  text-align: center;
-  margin-top: 18px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(107,143,113,0.12);
-}
-
-.countdown-label span {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 0.95rem;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--text-muted);
-  letter-spacing: 0.02em;
+  margin-top: 6px;
 }
 
 /* ===== Time Cards ===== */
 .time-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 14px;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .time-card {
@@ -183,28 +181,28 @@ body {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: var(--radius-sm);
-  padding: 14px 16px;
+  padding: 10px 12px;
   box-shadow: var(--shadow-sm);
 }
 
 .time-card .label {
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   color: var(--sage);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .time-card .time {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 400;
   color: var(--text);
 }
 
 .time-card .detail {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   color: var(--text-muted);
   margin-top: 1px;
 }
@@ -215,52 +213,52 @@ body {
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: var(--radius-sm);
-  padding: 14px 16px;
+  padding: 10px 12px;
   box-shadow: var(--shadow-sm);
-  margin-bottom: 14px;
-}
-
-.weather-card .label {
-  font-size: 0.55rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--sage);
   margin-bottom: 10px;
 }
 
+.weather-card .label {
+  font-size: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--sage);
+  margin-bottom: 8px;
+}
+
 .weather-scroll {
-  margin: 0 -16px;
-  padding: 0 16px;
+  margin: 0 -12px;
+  padding: 0 12px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
 .weather-scroll::-webkit-scrollbar { display: none; }
 
-.weather-days { display: flex; gap: 6px; }
+.weather-days { display: flex; gap: 4px; }
 
 .weather-day {
   flex: 0 0 auto;
-  width: 50px;
+  width: 44px;
   text-align: center;
-  padding: 10px 4px;
-  border-radius: 10px;
+  padding: 8px 2px;
+  border-radius: 8px;
   background: rgba(107,143,113,0.06);
 }
 
-.weather-day .d { font-size: 0.5rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
-.weather-day .i { font-size: 1.05rem; margin: 5px 0; line-height: 1; }
-.weather-day .t { font-size: 0.7rem; font-weight: 600; color: var(--text); }
-.weather-day .tl { font-size: 0.6rem; color: var(--text-muted); font-weight: 400; }
+.weather-day .d { font-size: 0.45rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.02em; }
+.weather-day .i { font-size: 0.95rem; margin: 4px 0; line-height: 1; }
+.weather-day .t { font-size: 0.65rem; font-weight: 600; color: var(--text); }
+.weather-day .tl { font-size: 0.55rem; color: var(--text-muted); font-weight: 400; }
 
 /* ===== Fact Card ===== */
 .fact-card {
   background: linear-gradient(135deg, var(--sage) 0%, var(--sage-deep) 100%);
   border-radius: var(--radius-sm);
-  padding: 18px 20px;
+  padding: 12px 14px;
   box-shadow: var(--shadow);
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   position: relative;
 }
 
@@ -268,25 +266,25 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .fact-card .label {
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   color: rgba(255,255,255,0.7);
 }
 
 .refresh-btn {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 1.5px solid rgba(255,255,255,0.3);
   background: rgba(255,255,255,0.1);
   color: rgba(255,255,255,0.8);
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -311,8 +309,8 @@ body {
 
 .fact-card .fact {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1rem;
-  line-height: 1.55;
+  font-size: 0.95rem;
+  line-height: 1.45;
   color: #fff;
   font-weight: 400;
   font-style: italic;
@@ -339,20 +337,20 @@ body {
   background: var(--card-solid);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow);
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   overflow: hidden;
 }
 
 .flight-header {
   background: linear-gradient(135deg, #e31837 0%, #c41230 100%);
-  padding: 12px 16px;
+  padding: 10px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .flight-header .airline {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -360,50 +358,50 @@ body {
 }
 
 .flight-header .flight-num {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #fff;
   letter-spacing: 0.02em;
 }
 
 .flight-body {
-  padding: 16px;
+  padding: 14px;
 }
 
 .flight-route {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .flight-airport {
   text-align: center;
-  flex: 0 0 70px;
+  flex: 0 0 60px;
 }
 
 .flight-airport .code {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: var(--text);
   letter-spacing: 0.02em;
 }
 
 .flight-airport .city {
-  font-size: 0.6rem;
+  font-size: 0.55rem;
   color: var(--text-muted);
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .flight-airport .time {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text);
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .flight-airport .tz {
-  font-size: 0.55rem;
+  font-size: 0.5rem;
   color: var(--text-muted);
 }
 
@@ -411,13 +409,13 @@ body {
   flex: 1;
   display: flex;
   align-items: center;
-  padding: 0 12px;
+  padding: 0 10px;
 }
 
 .flight-path-line {
   flex: 1;
-  height: 2px;
-  background: linear-gradient(90deg, var(--text-muted) 0%, var(--text-muted) 45%, transparent 45%, transparent 55%, var(--text-muted) 55%, var(--text-muted) 100%);
+  height: 1px;
+  background: linear-gradient(90deg, var(--text-muted) 0%, var(--text-muted) 40%, transparent 40%, transparent 60%, var(--text-muted) 60%, var(--text-muted) 100%);
   position: relative;
 }
 
@@ -426,16 +424,15 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: #e31837;
 }
 
 .flight-details {
   display: flex;
   justify-content: space-between;
-  padding-top: 12px;
-  border-top: 1px solid rgba(0,0,0,0.06);
-  margin-bottom: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
 
 .flight-detail {
@@ -443,101 +440,56 @@ body {
 }
 
 .flight-detail .label {
-  font-size: 0.5rem;
+  font-size: 0.45rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .flight-detail .value {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--text);
 }
 
-.flight-status {
+.flight-track-link {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding-top: 12px;
-  border-top: 1px solid rgba(0,0,0,0.06);
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
 
-.flight-status-badge {
+.flight-track-btn {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 5px 10px;
-  border-radius: 6px;
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.flight-status-badge.scheduled {
-  background: rgba(107,143,113,0.12);
-  color: var(--sage-deep);
-}
-
-.flight-status-badge.on-time {
-  background: rgba(34,139,34,0.12);
-  color: #228b22;
-}
-
-.flight-status-badge.delayed {
-  background: rgba(227,24,55,0.12);
-  color: #e31837;
-}
-
-.flight-status-badge.landed {
-  background: rgba(34,139,34,0.15);
-  color: #228b22;
-}
-
-.flight-update-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 8px 12px;
+  padding: 8px 14px;
   border-radius: 8px;
-  border: 1.5px solid rgba(227,24,55,0.3);
-  background: rgba(227,24,55,0.05);
-  color: #e31837;
+  border: none;
+  background: linear-gradient(135deg, #e31837 0%, #c41230 100%);
+  color: #fff;
   font-family: inherit;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  cursor: pointer;
+  text-decoration: none;
+  letter-spacing: 0.02em;
   -webkit-tap-highlight-color: transparent;
   transition: all 0.2s;
 }
 
-.flight-update-btn:active {
+.flight-track-btn:active {
   transform: scale(0.96);
-  background: rgba(227,24,55,0.1);
+  opacity: 0.9;
 }
 
-.flight-update-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.flight-update-btn svg {
-  width: 12px;
-  height: 12px;
-}
-
-.flight-update-btn.loading svg {
-  animation: spin 1s linear infinite;
-}
-
-.flight-last-updated {
-  font-size: 0.55rem;
-  color: var(--text-muted);
-  text-align: right;
-  margin-top: 8px;
+.flight-track-btn svg {
+  width: 11px;
+  height: 11px;
 }
 
 /* ===== Login Screen ===== */
@@ -689,15 +641,15 @@ body {
 /* ===== Small Screens ===== */
 @media (max-width: 375px) {
   .header h1 { font-size: 3.2rem; }
-  .countdown-item .num { font-size: 2.8rem; }
-  .countdown-card { padding: 22px 16px; }
+  .countdown-item .num { font-size: 2.5rem; }
+  .countdown-card { padding: 14px 12px 16px; }
 }
 
 /* ===== Larger Screens ===== */
 @media (min-width: 500px) {
   .app { max-width: 480px; padding-left: 32px; padding-right: 32px; }
   .header h1 { font-size: 4.5rem; }
-  .countdown-item .num { font-size: 3.8rem; }
+  .countdown-item .num { font-size: 3.4rem; }
 }
 </style>
 </head>
@@ -727,68 +679,26 @@ body {
   </header>
 
   <div class="countdown-card">
+    <div class="countdown-label"><span>until takeoff</span></div>
     <div class="countdown-grid" id="countdown">
       <div class="countdown-item"><div class="num" id="cDays">--</div><div class="unit">Days</div></div>
       <div class="countdown-item"><div class="num" id="cHours">--</div><div class="unit">Hours</div></div>
       <div class="countdown-item"><div class="num" id="cMins">--</div><div class="unit">Mins</div></div>
       <div class="countdown-item"><div class="num" id="cSecs">--</div><div class="unit">Secs</div></div>
     </div>
-    <div class="countdown-label"><span>until takeoff</span></div>
   </div>
 
-  <div class="flight-card" id="flightCard">
-    <div class="flight-header">
-      <span class="airline">Air Canada</span>
-      <span class="flight-num">AC 537</span>
+  <div class="fact-card">
+    <div class="fact-header">
+      <div class="label">Did You Know?</div>
+      <button class="refresh-btn" id="refreshFact" aria-label="New fact">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
+          <path d="M21 3v5h-5"/>
+        </svg>
+      </button>
     </div>
-    <div class="flight-body">
-      <div class="flight-route">
-        <div class="flight-airport">
-          <div class="code">YVR</div>
-          <div class="city">Vancouver</div>
-          <div class="time" id="flightDepTime">5:40 PM</div>
-          <div class="tz">PST</div>
-        </div>
-        <div class="flight-path">
-          <div class="flight-path-line">
-            <span class="flight-path-plane">✈</span>
-          </div>
-        </div>
-        <div class="flight-airport">
-          <div class="code">OGG</div>
-          <div class="city">Kahului</div>
-          <div class="time" id="flightArrTime">10:08 PM</div>
-          <div class="tz">HST</div>
-        </div>
-      </div>
-      <div class="flight-details">
-        <div class="flight-detail">
-          <div class="label">Date</div>
-          <div class="value" id="flightDate">Mar 26, 2026</div>
-        </div>
-        <div class="flight-detail">
-          <div class="label">Duration</div>
-          <div class="value">6h 28m</div>
-        </div>
-        <div class="flight-detail">
-          <div class="label">Aircraft</div>
-          <div class="value">737 MAX 8</div>
-        </div>
-      </div>
-      <div class="flight-status">
-        <div class="flight-status-badge scheduled" id="flightStatusBadge">
-          <span>Scheduled</span>
-        </div>
-        <button class="flight-update-btn" id="flightUpdateBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
-            <path d="M21 3v5h-5"/>
-          </svg>
-          Update Status
-        </button>
-      </div>
-      <div class="flight-last-updated" id="flightLastUpdated"></div>
-    </div>
+    <div class="fact" id="fact"></div>
   </div>
 
   <div class="time-row">
@@ -806,20 +716,59 @@ body {
 
   <div class="weather-card">
     <div class="label">Maui Weather</div>
-    <div id="weather"><div style="color:var(--text-muted);font-size:0.75rem;padding:8px 0;">Loading...</div></div>
+    <div id="weather"><div style="color:var(--text-muted);font-size:0.7rem;padding:6px 0;">Loading...</div></div>
   </div>
 
-  <div class="fact-card">
-    <div class="fact-header">
-      <div class="label">Did You Know?</div>
-      <button class="refresh-btn" id="refreshFact" aria-label="New fact">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
-          <path d="M21 3v5h-5"/>
-        </svg>
-      </button>
+  <div class="flight-card">
+    <div class="flight-header">
+      <span class="airline">Air Canada</span>
+      <span class="flight-num">AC 537</span>
     </div>
-    <div class="fact" id="fact"></div>
+    <div class="flight-body">
+      <div class="flight-route">
+        <div class="flight-airport">
+          <div class="code">YVR</div>
+          <div class="city">Vancouver</div>
+          <div class="time">5:40 PM</div>
+          <div class="tz">PST</div>
+        </div>
+        <div class="flight-path">
+          <div class="flight-path-line">
+            <span class="flight-path-plane">✈</span>
+          </div>
+        </div>
+        <div class="flight-airport">
+          <div class="code">OGG</div>
+          <div class="city">Kahului</div>
+          <div class="time">10:08 PM</div>
+          <div class="tz">HST</div>
+        </div>
+      </div>
+      <div class="flight-details">
+        <div class="flight-detail">
+          <div class="label">Date</div>
+          <div class="value">Mar 26</div>
+        </div>
+        <div class="flight-detail">
+          <div class="label">Duration</div>
+          <div class="value">6h 28m</div>
+        </div>
+        <div class="flight-detail">
+          <div class="label">Aircraft</div>
+          <div class="value">737 MAX 8</div>
+        </div>
+      </div>
+      <div class="flight-track-link">
+        <a href="https://www.flightaware.com/live/flight/ACA537/history/20260326/0040Z/CYVR/PHOG" target="_blank" rel="noopener" class="flight-track-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Track on FlightAware
+        </a>
+      </div>
+    </div>
   </div>
 
   <div class="landmark"><span id="landmark"></span></div>
@@ -879,11 +828,6 @@ body {
   var TRIP_TIME = '17:00';
   var TZ = 'Pacific/Honolulu';
   var LAT = 20.7984, LON = -156.3319;
-
-  // === Flight Configuration ===
-  var FLIGHT_IATA = 'AC537';
-  var FLIGHT_API_KEY = 'cb77caa61e47be30ff1e6002dc3fff44';
-  var FLIGHT_CACHE_KEY = 'maui_flight_data';
 
   var PHOTOS = [
     { id: '1507525428034-b723cf961d3e', name: 'Maui Beach' },
@@ -945,9 +889,6 @@ body {
 
     // Refresh fact button
     document.getElementById('refreshFact').addEventListener('click', nextFact);
-
-    // Initialize flight tracking
-    initFlight();
   }
 
   function updateDates() {
@@ -1051,145 +992,6 @@ body {
     }).catch(function(){
       document.getElementById('weather').innerHTML = '<div style="color:var(--text-muted);font-size:0.75rem;">Could not load weather</div>';
     });
-  }
-
-  // === Flight Tracking ===
-  function initFlight() {
-    // Load cached flight data if available
-    var cached = localStorage.getItem(FLIGHT_CACHE_KEY);
-    if (cached) {
-      try {
-        var data = JSON.parse(cached);
-        if (data.timestamp) {
-          updateFlightDisplay(data);
-        }
-      } catch(e) {}
-    }
-
-    // Attach update button handler
-    document.getElementById('flightUpdateBtn').addEventListener('click', fetchFlightStatus);
-  }
-
-  function fetchFlightStatus() {
-    var btn = document.getElementById('flightUpdateBtn');
-    btn.classList.add('loading');
-    btn.disabled = true;
-
-    // AviationStack API (note: free tier is HTTP only)
-    var url = 'https://api.aviationstack.com/v1/flights?access_key=' + FLIGHT_API_KEY + '&flight_iata=' + FLIGHT_IATA;
-
-    fetch(url)
-      .then(function(r) { return r.json(); })
-      .then(function(response) {
-        btn.classList.remove('loading');
-        btn.disabled = false;
-
-        if (response.error) {
-          showFlightError(response.error.message || 'API error');
-          return;
-        }
-
-        if (response.data && response.data.length > 0) {
-          var flight = response.data[0];
-          var flightData = {
-            timestamp: Date.now(),
-            status: flight.flight_status || 'scheduled',
-            depTime: flight.departure.scheduled || null,
-            arrTime: flight.arrival.scheduled || null,
-            depActual: flight.departure.actual || null,
-            arrActual: flight.arrival.actual || null,
-            depDelay: flight.departure.delay || 0,
-            arrDelay: flight.arrival.delay || 0,
-            depGate: flight.departure.gate || null,
-            arrGate: flight.arrival.gate || null
-          };
-
-          localStorage.setItem(FLIGHT_CACHE_KEY, JSON.stringify(flightData));
-          updateFlightDisplay(flightData);
-        } else {
-          showFlightError('No flight data available yet');
-        }
-      })
-      .catch(function(err) {
-        btn.classList.remove('loading');
-        btn.disabled = false;
-        showFlightError('Could not fetch flight data');
-      });
-  }
-
-  function updateFlightDisplay(data) {
-    var badge = document.getElementById('flightStatusBadge');
-    var lastUpdated = document.getElementById('flightLastUpdated');
-
-    // Update status badge
-    badge.className = 'flight-status-badge';
-    var statusText = 'Scheduled';
-
-    switch(data.status) {
-      case 'scheduled':
-        badge.classList.add('scheduled');
-        statusText = 'Scheduled';
-        break;
-      case 'active':
-        badge.classList.add('on-time');
-        statusText = 'In Flight';
-        break;
-      case 'landed':
-        badge.classList.add('landed');
-        statusText = 'Landed';
-        break;
-      case 'cancelled':
-        badge.classList.add('delayed');
-        statusText = 'Cancelled';
-        break;
-      case 'diverted':
-        badge.classList.add('delayed');
-        statusText = 'Diverted';
-        break;
-      default:
-        if (data.depDelay > 0) {
-          badge.classList.add('delayed');
-          statusText = 'Delayed ' + data.depDelay + 'min';
-        } else {
-          badge.classList.add('on-time');
-          statusText = 'On Time';
-        }
-    }
-
-    badge.innerHTML = '<span>' + statusText + '</span>';
-
-    // Update times if we have actual data
-    if (data.depActual) {
-      var depTime = new Date(data.depActual);
-      document.getElementById('flightDepTime').textContent = depTime.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true});
-    }
-    if (data.arrActual) {
-      var arrTime = new Date(data.arrActual);
-      document.getElementById('flightArrTime').textContent = arrTime.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true});
-    }
-
-    // Show last updated time
-    if (data.timestamp) {
-      var updated = new Date(data.timestamp);
-      lastUpdated.textContent = 'Last updated: ' + updated.toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true});
-    }
-  }
-
-  function showFlightError(msg) {
-    var lastUpdated = document.getElementById('flightLastUpdated');
-    lastUpdated.textContent = msg;
-    setTimeout(function() {
-      var cached = localStorage.getItem(FLIGHT_CACHE_KEY);
-      if (cached) {
-        var data = JSON.parse(cached);
-        if (data.timestamp) {
-          var updated = new Date(data.timestamp);
-          lastUpdated.textContent = 'Last updated: ' + updated.toLocaleString('en-US', {month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true});
-        }
-      } else {
-        lastUpdated.textContent = '';
-      }
-    }, 3000);
   }
 
   // Dark mode theme color
