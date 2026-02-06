@@ -111,7 +111,7 @@ body {
 
 .header-time {
   font-family: 'Manrope', -apple-system, system-ui, sans-serif;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1;
@@ -400,6 +400,11 @@ body {
   display: block;
 }
 
+.place-card.img-fallback {
+  min-height: 150px;
+  background: linear-gradient(145deg, rgba(107,143,113,0.35), rgba(255,255,255,0.65));
+}
+
 .place-card .place-title {
   position: absolute;
   inset: auto 0 0 0;
@@ -411,15 +416,43 @@ body {
   letter-spacing: 0.02em;
 }
 
+.place-card.img-fallback .place-title {
+  background: linear-gradient(to top, rgba(255,255,255,0.9), rgba(255,255,255,0));
+  color: #243328;
+}
+
 .place-card.active {
   outline: 1px solid rgba(107,143,113,0.5);
 }
 
 .places-detail {
   margin-top: 8px;
+  padding: 8px 9px;
+  border-radius: 10px;
+  background: rgba(107,143,113,0.09);
+  border: 1px solid rgba(107,143,113,0.18);
+}
+
+.places-detail .name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sage-deep);
+  margin-bottom: 4px;
+}
+
+.places-detail .desc {
   font-size: 0.8rem;
+  color: var(--text);
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.places-detail .meta {
+  font-size: 0.66rem;
   color: var(--text-soft);
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 /* ===== Webcam ===== */
@@ -796,7 +829,7 @@ body {
 
   .header { padding: 9px 10px 10px; margin-bottom: 7px; }
   .header-top { gap: 8px; margin-bottom: 5px; padding-bottom: 5px; }
-  .header-time { font-size: 0.94rem; }
+  .header-time { font-size: 0.84rem; }
   .header-date { font-size: 0.58rem; letter-spacing: 0.1em; }
   .header h1 { font-size: 2.2rem; }
   .header .dates { font-size: 0.75rem; }
@@ -825,7 +858,10 @@ body {
   .place-card { flex-basis: 84%; border-radius: 12px; }
   .place-card img { height: 138px; }
   .place-card .place-title { padding: 8px 10px; font-size: 0.74rem; }
-  .places-detail { margin-top: 6px; min-height: 34px; font-size: 0.75rem; line-height: 1.35; }
+  .places-detail { margin-top: 6px; min-height: 62px; padding: 7px 8px; }
+  .places-detail .name { font-size: 0.64rem; margin-bottom: 3px; }
+  .places-detail .desc { font-size: 0.74rem; margin-bottom: 3px; line-height: 1.3; }
+  .places-detail .meta { font-size: 0.62rem; line-height: 1.3; }
 
   .webcam-card { padding: 9px 10px 10px; margin-bottom: 7px; }
   .webcam-frame { border-radius: 10px; }
@@ -861,7 +897,7 @@ body {
 /* ===== Small Screens ===== */
 @media (max-width: 375px) {
   .header h1 { font-size: 2.05rem; }
-  .header-time { font-size: 0.88rem; }
+  .header-time { font-size: 0.8rem; }
   .header .dates { font-size: 0.7rem; }
   .countdown-item .num { font-size: 2.15rem; }
   .place-card img { height: 126px; }
@@ -871,7 +907,7 @@ body {
 @media (min-width: 500px) {
   .app { max-width: 480px; padding-left: 22px; padding-right: 22px; }
   .header h1 { font-size: 2.85rem; }
-  .header-time { font-size: 1.08rem; }
+  .header-time { font-size: 1rem; }
   .header .dates { font-size: 0.9rem; }
   .countdown-item .num { font-size: 3.4rem; }
 }
@@ -952,7 +988,7 @@ body {
     <div class="webcam-frame">
       <iframe
         title="Live Maui Webcam"
-        src="https://www.youtube.com/embed/hPvl6IACa2k?autoplay=0&mute=1&playsinline=1&rel=0"
+        src="https://www.youtube.com/embed/hPvl6IACa2k?autoplay=1&mute=1&playsinline=1&rel=0&loop=1&playlist=hPvl6IACa2k&controls=1"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen></iframe>
     </div>
@@ -1210,66 +1246,79 @@ body {
     {
       name: "Road to Hana",
       desc: "Lush rainforest drive with waterfalls, bridges, and ocean views.",
-      img: "https://source.unsplash.com/1200x800/?maui,road-to-hana"
+      info: "Best window: early morning | Tip: stop at Twin Falls and black-sand viewpoints.",
+      img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=800&fit=crop&auto=format&q=80"
     },
     {
       name: "Haleakalā Summit",
       desc: "Sunrise above the clouds and otherworldly volcanic landscapes.",
-      img: "https://source.unsplash.com/1200x800/?haleakala,summit"
+      info: "Best window: sunrise or sunset | Tip: bring layers, summit air is cold.",
+      img: "https://images.unsplash.com/photo-1509233725247-49e657c54213?w=1200&h=800&fit=crop&auto=format&q=80"
     },
     {
       name: "Wailea Beach",
       desc: "Soft sand, calm water, and a relaxed resort shoreline.",
-      img: "https://source.unsplash.com/1200x800/?wailea,beach"
+      info: "Best window: late afternoon | Tip: walk the Wailea coastal path at golden hour.",
+      img: "https://images.unsplash.com/photo-1506953823645-5e21091c4a68?w=1200&h=800&fit=crop&auto=format&q=80"
     },
     {
       name: "Molokini Crater",
       desc: "Crescent-shaped volcanic crater with clear snorkeling waters.",
-      img: "https://source.unsplash.com/1200x800/?molokini,crater"
+      info: "Best window: first morning boat | Tip: visibility is strongest before trade winds.",
+      img: "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=1200&h=800&fit=crop&auto=format&q=80"
     },
     {
       name: "ʻĪao Valley",
       desc: "Emerald valley with the iconic ʻĪao Needle.",
-      img: "https://source.unsplash.com/1200x800/?iao,valley"
+      info: "Best window: morning | Tip: quick stop after rain can mean misty dramatic views.",
+      img: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=1200&h=800&fit=crop&auto=format&q=80"
     },
     {
       name: "Kā‘anapali Beach",
       desc: "Long, lively beach with sunsets and Black Rock nearby.",
-      img: "https://source.unsplash.com/1200x800/?kaanapali,beach"
+      info: "Best window: sunset | Tip: watch the nightly cliff dive ceremony at Black Rock.",
+      img: "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=1200&h=800&fit=crop&auto=format&q=80"
     },
     {
       name: "Kapalua Bay",
       desc: "Protected bay with snorkeling and gentle swimming.",
-      img: "https://source.unsplash.com/1200x800/?kapalua,bay"
+      info: "Best window: calm mornings | Tip: look for turtles near the rocky edges.",
+      img: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200&h=800&fit=crop&auto=format&q=80"
     },
     {
       name: "Waiʻānapanapa",
       desc: "Black sand beach and sea caves along a rugged coastline.",
-      img: "https://source.unsplash.com/1200x800/?black,sand,beach,hawaii"
+      info: "Best window: midday light | Tip: reserve entry and wear shoes for lava rock.",
+      img: "https://images.unsplash.com/photo-1504681869696-d977211a5f4c?w=1200&h=800&fit=crop&auto=format&q=80"
     },
     {
       name: "Makena Big Beach",
       desc: "Wide golden sand with powerful waves and open views.",
-      img: "https://source.unsplash.com/1200x800/?makena,beach"
+      info: "Best window: morning | Tip: shore break can be strong, check conditions first.",
+      img: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=1200&h=800&fit=crop&auto=format&q=80"
     },
     {
       name: "Honolua Bay",
       desc: "Marine preserve with crystal-clear snorkeling and surf breaks.",
-      img: "https://source.unsplash.com/1200x800/?honolua,bay"
+      info: "Best window: summer mornings | Tip: short forest trail leads to the bay opening.",
+      img: "https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?w=1200&h=800&fit=crop&auto=format&q=80"
     },
     {
       name: "Twin Falls",
       desc: "Easy rainforest hike with cascading waterfalls.",
-      img: "https://source.unsplash.com/1200x800/?maui,waterfall"
+      info: "Best window: morning | Tip: bring water shoes for muddy and slick sections.",
+      img: "https://images.unsplash.com/photo-1509233725247-49e657c54213?w=1200&h=800&fit=crop&auto=format&q=80"
     },
     {
       name: "Paia Town",
       desc: "Colorful surf town with shops, cafés, and beach vibes.",
-      img: "https://source.unsplash.com/1200x800/?paia,maui"
+      info: "Best window: brunch to sunset | Tip: pair town walk with nearby Hookipa overlook.",
+      img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=800&fit=crop&auto=format&q=80"
     }
   ];
 
   var currentFactIndex;
+  var factQueue = [];
   var currentPlaceIndex = 0;
   var carouselTimer;
   var placesTrack;
@@ -1368,18 +1417,33 @@ body {
     document.getElementById('landmark').textContent = p.name;
   }
 
-  function randomFactIndex() {
-    return Math.floor(Math.random() * FACTS.length);
+  function shuffleFactQueue() {
+    for (var i = factQueue.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = factQueue[i];
+      factQueue[i] = factQueue[j];
+      factQueue[j] = temp;
+    }
+  }
+
+  function refillFactQueue() {
+    factQueue = [];
+    for (var i = 0; i < FACTS.length; i++) {
+      factQueue.push(i);
+    }
+    shuffleFactQueue();
+
+    // Prevent immediate repeat across shuffle boundaries.
+    if (factQueue.length > 1 && currentFactIndex !== undefined && factQueue[0] === currentFactIndex) {
+      var swap = factQueue[0];
+      factQueue[0] = factQueue[1];
+      factQueue[1] = swap;
+    }
   }
 
   function pickInitialFactIndex() {
-    var last = parseInt(localStorage.getItem('maui_last_fact'), 10);
-    var idx = randomFactIndex();
-    if (!isNaN(last) && FACTS.length > 1 && idx === last) {
-      idx = (idx + 1) % FACTS.length;
-    }
-    localStorage.setItem('maui_last_fact', idx);
-    return idx;
+    refillFactQueue();
+    return factQueue.shift();
   }
 
   function showFact() {
@@ -1387,12 +1451,10 @@ body {
   }
 
   function nextFact() {
-    var next = randomFactIndex();
-    if (FACTS.length > 1 && next === currentFactIndex) {
-      next = (next + 1) % FACTS.length;
+    if (!factQueue.length) {
+      refillFactQueue();
     }
-    currentFactIndex = next;
-    localStorage.setItem('maui_last_fact', currentFactIndex);
+    currentFactIndex = factQueue.shift();
     showFact();
     var btn = document.getElementById('refreshFact');
     btn.classList.add('spin');
@@ -1426,7 +1488,7 @@ body {
     var cards = '';
     for (var i = 0; i < PLACES.length; i++) {
       cards += '<div class="place-card" data-index="'+i+'">' +
-        '<img src="'+PLACES[i].img+'" alt="'+PLACES[i].name+'">' +
+        '<img loading="lazy" decoding="async" src="'+PLACES[i].img+'" alt="'+PLACES[i].name+'" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'img-fallback\');">' +
         '<div class="place-title">'+PLACES[i].name+'</div>' +
       '</div>';
     }
@@ -1486,11 +1548,15 @@ body {
     if (!placesTrack || !placesDetail) return;
     var cards = placesTrack.querySelectorAll('.place-card');
     currentPlaceIndex = (index + PLACES.length) % PLACES.length;
+    var place = PLACES[currentPlaceIndex];
     for (var i = 0; i < cards.length; i++) {
       if (i === currentPlaceIndex) cards[i].classList.add('active');
       else cards[i].classList.remove('active');
     }
-    placesDetail.textContent = PLACES[currentPlaceIndex].desc;
+    placesDetail.innerHTML =
+      '<div class="name">' + place.name + '</div>' +
+      '<div class="desc">' + place.desc + '</div>' +
+      '<div class="meta">' + place.info + '</div>';
     if (shouldScroll && cards[currentPlaceIndex]) {
       cards[currentPlaceIndex].scrollIntoView({behavior: 'smooth', inline: 'center', block: 'nearest'});
     }
